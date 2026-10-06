@@ -1,0 +1,32 @@
+/*
+Theme Name: SafeTunnels
+Theme URI: https://safetunnels.net/
+Author: ZanaTech
+Author URI: https://safetunnels.net/
+Description: A conversion-focused, SEO-hardened WordPress theme for SafeTunnels (Tunnel Network) — a full port of the /tunnels React landing page with working APK downloads, RevenueCat hosted checkout, live reviews, and every legal/support page schema-marked out of the box.
+Version: 1.0.0
+Requires at least: 6.2
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: safetunnels
+Tags: one-column, custom-colors, custom-logo, custom-menu, featured-images, full-width-template, translation-ready, blog, seo
+*/
+
+/*
+  Presentation lives in assets/css/*.css (tunnels.css, legal.css, theme.css)
+  and is enqueued from inc/enqueue.php. This file only carries the theme
+  header WordPress requires, plus the handful of resets that must land
+  before anything else paints.
+*/
+
+html {
+  background: #050a14;
+}
+
+body {
+  margin: 0;
+  background: #050a14;
+  color: #fff;
+}
