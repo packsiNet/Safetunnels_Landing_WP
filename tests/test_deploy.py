@@ -24,14 +24,14 @@ class PackageTests(unittest.TestCase):
     def test_artifact_excludes_private_files_and_contains_revision(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = pathlib.Path(temporary)
-            for name in ['functions.php', 'style.css', 'wp-config.php', '.env', 'database.sqlite', 'run-local.sh', '.aws/credentials', '.local-wordpress/login.txt', 'assets/css/site.css']:
+            for name in ['functions.php', 'style.css', 'wp-config.php', '.env', 'database.sqlite', 'run-local.sh', '.aws/credentials', '.local-wordpress/login.txt', 'assets/css/site.css', 'assets/downloads/safetunnels.apk']:
                 path = root / name
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text('<?php' if name == 'functions.php' else 'test')
             output = root / 'dist/theme.tar.gz'
             digest = package.package(root, output, SHA)
             with tarfile.open(output) as archive:
-                self.assertEqual(set(archive.getnames()), {'functions.php', 'style.css', 'assets/css/site.css', 'release.json'})
+                self.assertEqual(set(archive.getnames()), {'functions.php', 'style.css', 'assets/css/site.css', 'assets/downloads/safetunnels.apk', 'release.json'})
                 self.assertEqual(json.load(archive.extractfile('release.json'))['revision'], SHA)
                 self.assertIn(SHA.encode(), archive.extractfile('functions.php').read())
                 self.assertEqual((root / 'functions.php').read_text(), '<?php')

@@ -37,7 +37,7 @@ function safetunnels_defaults() {
 		'reviews_ttl'      => 300,
 
 		// ── Download ───────────────────────────────────────────────────
-		'apk_url'          => 'https://safetunnels.net/downloads/safetunnels.apk',
+		'apk_url'          => get_theme_file_uri( 'assets/downloads/safetunnels.apk' ),
 		'apk_package'      => 'com.sagetunnel.android',
 		'apk_version'      => '',
 		'apk_size'         => '',

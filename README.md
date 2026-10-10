@@ -18,6 +18,16 @@ once when the page structure changes. Existing page IDs and editor content are
 preserved. Former flat URLs, such as `/privacy/`, redirect to the nested paths.
 Appearance → SafeTunnels Pages can regenerate missing pages.
 
+## Direct APK download
+
+Place the release file at `assets/downloads/safetunnels.apk` and commit it before
+pushing to `main`. The deployment package includes files under `assets`, and the
+direct download button points to this file in the deployed theme by default.
+After deployment, open the direct download button and confirm the APK downloads.
+If **Appearance → Customize → SafeTunnels → Download → Direct APK URL** was
+previously saved, clear that override or set it to the deployed file URL; saved
+Customizer values take precedence over the theme default.
+
 For the prepared local installation, run `./run-local.sh` and open
 `http://127.0.0.1:8080/`. Stop it with Ctrl+C. The local WordPress runtime,
 database and administrator login are excluded from Git.
