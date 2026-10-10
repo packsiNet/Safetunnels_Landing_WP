@@ -120,7 +120,7 @@ sudo cat /opt/safetunnels/secrets/admin_password
 - تعویض Docker app ممکن است چند ثانیه وقفه داشته باشد؛ این طراحی rolling blue/green نیست.
 - دیتابیس **خودکار restore نمی‌شود**؛ این کار می‌تواند اطلاعات جدید کاربران را حذف کند. migration قالب ممکن است داده‌ها را تغییر دهد؛ SQL قبل از دپلوی برای بازیابی آگاهانه باقی می‌ماند.
 - شکست اولین نصب، داده‌ها و containerهای ایجادشده را برای retry حفظ می‌کند؛ موفقیت گزارش نمی‌شود.
-- شکست پاک‌سازی Cloudflare یا بررسی عمومی پس از موفقیت origin، workflow را قرمز می‌کند اما سایت سالم origin را حذف نمی‌کند. مشکل DNS/firewall/Cloudflare را رفع و Run workflow را اجرا کنید.
+- شکست پاک‌سازی کش Cloudflare پس از موفقیت origin فقط warning می‌دهد و بررسی HTTPS عمومی ادامه پیدا می‌کند؛ صفحات کش‌شده ممکن است قدیمی بمانند. شکست بررسی HTTPS عمومی همچنان workflow را قرمز می‌کند اما سایت سالم origin را حذف نمی‌کند. مشکل DNS/firewall/Cloudflare را رفع و Run workflow را اجرا کنید.
 - برای بازگشت دستی به کد قبل، commit مشکل‌دار را `git revert` و push کنید.
 - قفل GitHub و `flock` جلوی دپلوی همزمان را می‌گیرند. `SIGKILL` یا قطع برق ممکن است مانع اجرای rollback شود؛ workflow را پس از بررسی `.env` و سرویس‌ها دوباره اجرا کنید.
 

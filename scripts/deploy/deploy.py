@@ -127,7 +127,8 @@ def purge_cache(app_url):
             return
         except RuntimeError:
             if attempt == 2:
-                raise RuntimeError('Release is deployed, but Cloudflare cache purge failed. Check token scope/zone ID.') from None
+                print('::warning::Cloudflare cache purge failed. Release is deployed; check Cache Purge permission and zone ID. Cached pages may remain stale.')
+                return False
             time.sleep(3 * (attempt + 1))
 
 def main():

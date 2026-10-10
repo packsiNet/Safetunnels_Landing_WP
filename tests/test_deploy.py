@@ -200,3 +200,17 @@ class DockerRemoteTests(unittest.TestCase):
 
     def test_domain_move_with_missing_settings_reuses_installation(self):self.run_deploy(migrate=True)
     def test_failed_domain_move_restores_previous_url(self):self.run_deploy('FAIL_HEALTH',migrate=True)
+
+class CachePurgeTests(unittest.TestCase):
+    def test_cache_failure_warns_after_retries_without_failing_deploy(self):
+        with patch.dict(os.environ, {'CLOUDFLARE_API_TOKEN': 'token', 'CLOUDFLARE_ZONE_ID': 'b' * 32}, clear=True), patch.object(deploy, 'cloudflare', side_effect=RuntimeError('denied')) as api, patch.object(deploy.time, 'sleep'), patch('builtins.print') as output:
+            self.assertFalse(deploy.purge_cache('https://example.org'))
+            self.assertEqual(api.call_count, 3)
+            self.assertTrue(any('::warning::' in str(call) for call in output.call_args_list))
+
+    def test_success_does_not_warn_or_purge_other_domains(self):
+        with patch.dict(os.environ, {'CLOUDFLARE_API_TOKEN': 'token', 'CLOUDFLARE_ZONE_ID': 'b' * 32}, clear=True), patch.object(deploy, 'cloudflare', return_value={}) as api, patch('builtins.print') as output:
+            deploy.purge_cache('https://example.org')
+            self.assertEqual(api.call_count, 1)
+            self.assertTrue(all(url.startswith('https://example.org/') for url in api.call_args.args[2]['files']))
+            self.assertFalse(any('::warning::' in str(call) for call in output.call_args_list))
