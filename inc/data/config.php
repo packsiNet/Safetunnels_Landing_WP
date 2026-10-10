@@ -30,7 +30,7 @@ function safetunnels_defaults() {
 
 		// ── Backend ────────────────────────────────────────────────────
 		// Same API the React app talks to (VITE_API_BASE_URL).
-		'api_base_url'     => 'https://core.safetunnels.net',
+		'api_base_url'     => 'https://core.zanatech.online',
 		// Proxy browser calls through WordPress so the browser never has to
 		// cross an origin (kills CORS problems on a new domain).
 		'use_api_proxy'    => true,
@@ -38,7 +38,7 @@ function safetunnels_defaults() {
 
 		// ── Download ───────────────────────────────────────────────────
 		'apk_url'          => get_theme_file_uri( 'assets/downloads/safetunnels.apk' ),
-		'apk_package'      => 'com.sagetunnel.android',
+		'apk_package'      => 'net.packsi.tunnels',
 		'apk_version'      => '',
 		'apk_size'         => '',
 		'min_android'      => 'Android 8.0+',

@@ -65,7 +65,7 @@ function safetunnels_document_title_parts( $parts ) {
 	}
 
 	if ( 'home' === safetunnels_current_page_key() ) {
-		$parts['title']   = safetunnels_opt( 'app_name' ) . ' — ' . __( 'Tunnels to Iran Without Limits', 'safetunnels' );
+		$parts['title']   = __( 'Iran VPN & Iranian IP for Apps Abroad', 'safetunnels' ) . ' | ' . safetunnels_opt( 'app_name' );
 		$parts['tagline'] = '';
 		unset( $parts['site'] );
 	}
@@ -116,6 +116,12 @@ function safetunnels_meta_description() {
 
 	if ( ! $description ) {
 		$description = get_bloginfo( 'description', 'display' );
+	}
+
+	// Refresh the theme's previous default on existing installations while
+	// preserving descriptions entered by the site owner.
+	if ( 'home' === safetunnels_current_page_key() && 0 === strpos( $description, 'Access every Iranian app from anywhere in the world.' ) ) {
+		$description = 'Need an Iranian IP address abroad? SafeTunnels is an Iran VPN for Android that helps you access supported Iranian apps and websites from outside Iran.';
 	}
 
 	$description = wp_strip_all_tags( (string) $description );

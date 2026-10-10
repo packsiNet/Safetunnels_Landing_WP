@@ -37,7 +37,7 @@ function safetunnels_page_registry() {
 			'slug'     => 'tunnels',
 			'template' => 'page-templates/template-home.php',
 			'nav'      => false,
-			'desc'     => 'Access every Iranian app from anywhere in the world. SafeTunnels routes only Iranian traffic through an AES-256 encrypted WireGuard tunnel — banking, shopping, streaming — free to start on Android.',
+			'desc'     => 'Need an Iranian IP address abroad? SafeTunnels is an Iran VPN for Android that helps you access supported Iranian apps and websites from outside Iran.',
 		),
 		'peeko'          => array(
 			'title'       => 'Peeko',
