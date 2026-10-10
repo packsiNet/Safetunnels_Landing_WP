@@ -303,6 +303,7 @@ function safetunnels_customize_register( $wp_customize ) {
 	$legal = array(
 		'legal_effective' => __( 'Effective date (YYYY-MM-DD)', 'safetunnels' ),
 		'legal_updated'   => __( 'Last updated (YYYY-MM-DD)', 'safetunnels' ),
+		'privacy_updated' => __( 'Privacy Policy last updated (YYYY-MM-DD)', 'safetunnels' ),
 		'privacy_version' => __( 'Privacy Policy version', 'safetunnels' ),
 		'terms_version'   => __( 'Terms version', 'safetunnels' ),
 	);

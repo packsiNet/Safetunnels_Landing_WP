@@ -1,0 +1,55 @@
+/* Document and WordPress views share the landing's ivory, forest and mint palette. */
+body.st-product :is(.tn-page, .lg-page) { min-height: 100vh; overflow: visible; }
+body.st-product :is(.tn-page, .lg-page) .back-btn { color: #38624e; background: #edf5ed; border-color: #d5e3d7; margin-right: 14px; }
+body.st-product :is(.tn-page, .lg-page) .st-drawer-cta { background: #07865e; color: #fff; }
+body.st-product .lg-page .lg-hero {
+  padding: 64px 0 48px;
+  background: radial-gradient(ellipse at 75% 20%, #e5f2e6, #f5f8ee 45%, #fbfcf9 80%);
+  border-bottom: 1px solid #e0e8dc;
+}
+body.st-product .lg-page .lg-title { font-size: clamp(36px, 5vw, 60px); font-weight: 800; letter-spacing: -2px; color: #18382c; }
+body.st-product .lg-page .lg-subtitle { color: #63746c; line-height: 1.8; }
+body.st-product .lg-page .lg-content { max-width: 1180px; padding: 36px 40px 90px; }
+body.st-product .lg-page .legal-layout { grid-template-columns: 240px minmax(0, 1fr); gap: 32px; }
+body.st-product .lg-page .legal-toc { top: 108px; padding: 22px 16px; border-radius: 16px; }
+body.st-product .lg-page .legal-toc-label { color: #63746c; font-weight: 800; padding: 0 10px; }
+body.st-product .lg-page .legal-toc a { color: #526b5c; padding: 10px; }
+body.st-product .lg-page .legal-toc a:hover { color: #07865e; background: #edf5ed; }
+body.st-product .lg-page .legal-chip { color: #526b5c; background: #edf5ed; border: 1px solid #dce5de; padding: 9px 14px; }
+body.st-product .lg-page .legal-card { padding: 32px; border-radius: 18px; scroll-margin-top: 24px; }
+body.st-product .lg-page .legal-card h2 { font-size: 21px; font-weight: 800; align-items: baseline; }
+body.st-product .lg-page .legal-num { width: 32px; height: 32px; background: #e9f5ed; border: 0; color: #07865e; }
+body.st-product .lg-page .legal-card :is(p, li) { color: #52675d; font-size: 14px; line-height: 1.9; }
+/* Rich list items contain mixed inline text and emphasis. Keep them in normal flow. */
+body.st-product .lg-page .legal-card li { display: block; }
+body.st-product .lg-page .legal-card strong { color: #243e32; font-weight: 750; }
+body.st-product .lg-page :is(.support-card, .reason-card, .legal-collect-col, .st-post-card, .st-prose.glass) { background: #fff; border: 1px solid #dce5de; box-shadow: none; }
+body.st-product .lg-page :is(.support-card:hover, .reason-card:hover) { background: #f0f7ef; border-color: #b4d2bf; }
+body.st-product .lg-page :is(.support-ico, .reason-ico, .contact-ico) { background: #e9f5ed; color: #07865e; border-color: #d3e5d8; }
+body.st-product :is(.tn-page, .lg-page) :is(.st-page-title, .st-post-title, .st-post-card h2, .st-article h1) { font-family: inherit; color: #18382c; }
+body.st-product :is(.tn-page, .lg-page) :is(input, textarea, select) { font-family: inherit; background: #fff; color: #172d28; border-color: #cdddcf; }
+body.st-product :is(.tn-page, .lg-page) :is(input, textarea)::placeholder { color: #718079; }
+body.st-product .lg-page :is(.nf-code, .pr-ref span) { background: none; color: #07865e; }
+body.st-product .lg-page .legal-btn { box-shadow: none; border-radius: 10px; }
+body.st-product .lg-page .legal-btn.out { background: #fff; border-color: #d2ded4; }
+body.st-product :is(.tn-page, .lg-page) .st-prose { color: #52675d; }
+body.st-product :is(.tn-page, .lg-page) .st-prose :is(h1, h2, h3, strong) { color: #18382c; }
+@media (max-width: 1100px) {
+  body.st-product :is(.tn-page, .lg-page) .nav-links { display: none; }
+  body.st-product :is(.tn-page, .lg-page) .nav-burger { display: flex; }
+}
+@media (max-width: 860px) {
+  body.st-product .lg-page .legal-layout { grid-template-columns: 1fr; }
+  body.st-product .lg-page .legal-toc { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  body.st-product .lg-page .lg-hero { padding: 36px 0; }
+  body.st-product .lg-page .lg-content { padding: 28px 20px 56px; }
+  body.st-product .lg-page .legal-card { padding: 24px 20px; }
+  body.st-product .lg-page .legal-card h2 { font-size: 18px; }
+  body.st-product :is(.tn-page, .lg-page) .back-btn { display: none; }
+  body.st-product .lg-page .legal-toc a { font-size: 12px; overflow-wrap: anywhere; }
+}
+
+body.st-product :is(.tn-page, .lg-page) :is(.footer-copy, .footer-links) { color: #a9bca1; }
+body.st-product .lg-page .flogo-name { color: #eff6e7; }

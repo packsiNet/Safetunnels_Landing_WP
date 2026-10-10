@@ -1,0 +1,87 @@
+name: Validate and deploy WordPress theme
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Never interrupt a deployment midway through an atomic switch/rollback.
+concurrency:
+  group: safetunnels-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate and package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Check PHP, shell and deployment tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          php --version
+          command -v shellcheck
+          while IFS= read -r -d '' file; do php -l "$file" >/dev/null; done < <(find . -type f -name '*.php' -not -path './.git/*' -print0)
+          node --check assets/js/app.js
+          bash -n scripts/deploy/remote.sh
+          shellcheck scripts/deploy/remote.sh
+          python3 -m unittest discover -s tests -v
+      - name: Build allowlisted immutable artifact
+        run: python3 scripts/deploy/package.py --revision "$GITHUB_SHA" --output dist/safetunnels.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: safetunnels-${{ github.sha }}
+          path: |
+            dist/safetunnels.tar.gz
+            dist/safetunnels.tar.gz.sha256
+          if-no-files-found: error
+          retention-days: 14
+
+  deploy:
+    name: Deploy production
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: production
+    env:
+      APP_URL: ${{ vars.APP_URL || secrets.APP_URL }}
+      SERVER_HOST: ${{ secrets.SERVER_HOST }}
+      SERVER_PORT: ${{ secrets.SERVER_PORT || vars.SERVER_PORT || '22' }}
+      SERVER_USER: ${{ secrets.SERVER_USER }}
+      SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+      SERVER_KNOWN_HOSTS: ${{ secrets.SERVER_KNOWN_HOSTS }}
+      WP_ROOT: ${{ vars.WP_ROOT }}
+      DEPLOY_ROOT: ${{ vars.DEPLOY_ROOT }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ZONE_ID: ${{ vars.CLOUDFLARE_ZONE_ID }}
+      RELEASE_SHA: ${{ github.sha }}
+      ARTIFACT: dist/safetunnels.tar.gz
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: safetunnels-${{ github.sha }}
+          path: dist
+      - name: Deploy, verify and purge Cloudflare
+        run: python3 scripts/deploy/deploy.py
+      - name: Deployment summary
+        if: always()
+        env:
+          RESULT: ${{ job.status }}
+        run: |
+          # Markdown backticks are literal, not shell command substitutions.
+          # shellcheck disable=SC2016
+          printf '## Production deployment\n\nCommit: `%s`\n\nResult: **%s**\n' "$RELEASE_SHA" "$RESULT" >> "$GITHUB_STEP_SUMMARY"

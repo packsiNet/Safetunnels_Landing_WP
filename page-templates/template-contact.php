@@ -44,7 +44,7 @@ get_header();
 					<div>
 						<div class="contact-label"><?php esc_html_e( 'Website', 'safetunnels' ); ?></div>
 						<div class="contact-value">
-							<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html( home_url( '/' ) ); ?></a>
+						<a href="<?php echo esc_url( safetunnels_page_url( 'home' ) ); ?>"><?php echo esc_html( safetunnels_page_url( 'home' ) ); ?></a>
 						</div>
 					</div>
 				</div>

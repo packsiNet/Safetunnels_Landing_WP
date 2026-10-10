@@ -2,6 +2,9 @@
 /**
  * Template Name: SafeTunnels — Privacy Policy
  *
+ * Matches /tunnels/privacy version 1.1, updated 2026-10-07.
+ * Fragment IDs follow the reference and retain existing support links.
+ *
  * @package SafeTunnels
  */
 
@@ -14,20 +17,16 @@ $urls      = safetunnels_external_urls();
 
 $sections = array(
 	's1'  => __( 'Overview', 'safetunnels' ),
-	's2'  => __( 'No Account Registration Required', 'safetunnels' ),
-	's3'  => __( 'Information We Do Not Collect', 'safetunnels' ),
-	's4'  => __( 'Information We Collect', 'safetunnels' ),
-	's5'  => __( 'How We Use This Information', 'safetunnels' ),
-	's6'  => __( 'Your Network Traffic &amp; Browsing Activity', 'safetunnels' ),
-	's7'  => __( 'Advertising — Google AdMob', 'safetunnels' ),
-	's8'  => __( 'Data Sharing and Sale', 'safetunnels' ),
-	's9'  => __( 'Third-Party Services', 'safetunnels' ),
-	's10' => __( 'Data Security', 'safetunnels' ),
-	's11' => __( 'Data Retention', 'safetunnels' ),
-	's12' => __( 'Children\'s Privacy', 'safetunnels' ),
-	's13' => __( 'Account Deletion &amp; Your Rights', 'safetunnels' ),
-	's14' => __( 'Changes to This Policy', 'safetunnels' ),
-	's15' => __( 'Contact Us', 'safetunnels' ),
+	's2'  => __( 'Information we handle', 'safetunnels' ),
+	's3'  => __( 'How we use information', 'safetunnels' ),
+	's4'  => __( 'Connection and traffic', 'safetunnels' ),
+	's5'  => __( 'Ads and service providers', 'safetunnels' ),
+	's6'  => __( 'Sharing and security', 'safetunnels' ),
+	's7'  => __( 'Retention', 'safetunnels' ),
+	's8'  => __( 'Children', 'safetunnels' ),
+	's13' => __( 'Your choices and deletion', 'safetunnels' ),
+	's14' => __( 'Changes', 'safetunnels' ),
+	's15' => __( 'Contact', 'safetunnels' ),
 );
 
 get_header();
@@ -43,7 +42,7 @@ get_header();
 			'title'    => __( 'Privacy Policy', 'safetunnels' ),
 			'subtitle' => sprintf(
 				/* translators: %s: app name. */
-				__( '%s is built to work without collecting who you are. This page explains exactly what data the app handles, why, and what it never touches.', 'safetunnels' ),
+				__( 'How %s handles information needed to provide and support its connection service.', 'safetunnels' ),
 				$app
 			),
 		)
@@ -56,8 +55,10 @@ get_header();
 			'template-parts/legal/meta-bar',
 			null,
 			array(
-				'version' => safetunnels_opt( 'privacy_version' ),
-				'updated' => safetunnels_opt( 'legal_updated' ),
+				'version'        => safetunnels_opt( 'privacy_version' ),
+				'updated'        => safetunnels_opt( 'privacy_updated' ),
+				'show_effective' => false,
+				'format_date'    => false,
 			)
 		);
 		?>
@@ -77,294 +78,69 @@ get_header();
 			<div class="legal-sections">
 				<section id="s1" class="legal-card glass">
 					<h2><span class="legal-num">1</span> <?php esc_html_e( 'Overview', 'safetunnels' ); ?></h2>
-					<p>
-						<?php
-						printf(
-							/* translators: 1: app name, 2: developer, 3: app name, 4: app name. */
-							esc_html__( '%1$s is an Android application developed by %2$s that provides secure, encrypted connectivity between your device and %3$s servers for supported apps and services. This Privacy Policy explains what information the app handles, how it is used, and the choices available to you. By installing or using %4$s, you agree to the practices described here.', 'safetunnels' ),
-							esc_html( $app ),
-							esc_html( $developer ),
-							esc_html( $app ),
-							esc_html( $app )
-						);
-						?>
-					</p>
-					<p>
-						<?php
-						printf(
-							/* translators: %s: app name. */
-							esc_html__( 'We designed %s around a simple principle: the app should work without knowing who you are. We do not require a real name, email address, or phone number at any point.', 'safetunnels' ),
-							esc_html( $app )
-						);
-						?>
-					</p>
+					<p><?php echo esc_html( $app ); ?><?php esc_html_e( ' is an Android app provided by ', 'safetunnels' ); ?><?php echo esc_html( $developer ); ?><?php esc_html_e( '. It creates an encrypted connection for supported apps and services. This policy explains information involved in operating the app, providing subscriptions, showing ads, and responding to support requests.', 'safetunnels' ); ?></p>
 				</section>
 
 				<section id="s2" class="legal-card glass">
-					<h2><span class="legal-num">2</span> <?php esc_html_e( 'No Account Registration Required', 'safetunnels' ); ?></h2>
-					<p>
-						<?php
-						printf(
-							/* translators: %s: app name. */
-							esc_html__( '%s does not require you to sign up with any personal information. When you first open the app, it automatically generates a random, anonymous internal identifier for your installation — you never enter a name, email, or phone number.', 'safetunnels' ),
-							esc_html( $app )
-						);
-						?>
-					</p>
-					<p><?php esc_html_e( 'To operate subscription management on our backend systems, the app also automatically generates a system-internal email address associated with that anonymous identifier. You never type, see, or need to remember this address — it is not used to contact you and is not a real, user-facing email account.', 'safetunnels' ); ?></p>
+					<h2><span class="legal-num">2</span> <?php esc_html_e( 'Information we handle', 'safetunnels' ); ?></h2>
+					<ul>
+						<li><strong><?php esc_html_e( 'Installation and account identifiers:', 'safetunnels' ); ?></strong><?php esc_html_e( ' a generated identifier and an internal account address used to recognize an installation and manage access. The internal address is not a mailbox for contacting you.', 'safetunnels' ); ?></li>
+						<li><strong><?php esc_html_e( 'Plan and purchase information:', 'safetunnels' ); ?></strong><?php esc_html_e( ' subscription status and product or transaction information needed to grant paid features and resolve billing issues. Google Play handles payment card details.', 'safetunnels' ); ?></li>
+						<li><strong><?php esc_html_e( 'Connection and usage information:', 'safetunnels' ); ?></strong><?php esc_html_e( ' connection configuration, server assignment, connection status, and bandwidth totals needed to operate the service and apply plan limits.', 'safetunnels' ); ?></li>
+						<li><strong><?php esc_html_e( 'Preferences and support:', 'safetunnels' ); ?></strong><?php esc_html_e( ' settings you choose and information you send us, such as an email address and support message.', 'safetunnels' ); ?></li>
+					</ul>
+					<p><?php esc_html_e( 'We do not ask for your name, phone number, contacts, photos, messages, or precise location to use the connection service. Advertising providers may process other device information as explained below.', 'safetunnels' ); ?></p>
 				</section>
 
 				<section id="s3" class="legal-card glass">
-					<h2><span class="legal-num">3</span> <?php esc_html_e( 'Information We Do Not Collect', 'safetunnels' ); ?></h2>
-					<p>
-						<?php
-						printf(
-							/* translators: %s: app name. */
-							esc_html__( '%s does not require, request, or collect any of the following:', 'safetunnels' ),
-							esc_html( $app )
-						);
-						?>
-					</p>
-
-					<div class="legal-collect-grid">
-						<div class="legal-collect-col no">
-							<div class="legal-collect-title">
-								<?php safetunnels_icon( 'ti-x' ); ?> <?php esc_html_e( 'Never collected', 'safetunnels' ); ?>
-							</div>
-							<ul>
-								<?php
-								$never = array(
-									__( 'Your name', 'safetunnels' ),
-									__( 'Phone number', 'safetunnels' ),
-									__( 'Home or mailing address', 'safetunnels' ),
-									__( 'Contacts', 'safetunnels' ),
-									__( 'Messages', 'safetunnels' ),
-									__( 'Photos or videos', 'safetunnels' ),
-									__( 'Files stored on your device', 'safetunnels' ),
-									__( 'Precise (GPS) location', 'safetunnels' ),
-									__( 'Payment card information', 'safetunnels' ),
-								);
-								foreach ( $never as $item ) :
-									?>
-									<li class="no"><?php safetunnels_icon( 'ti-x' ); ?> <?php echo esc_html( $item ); ?></li>
-								<?php endforeach; ?>
-							</ul>
-						</div>
-
-						<div class="legal-collect-col yes">
-							<div class="legal-collect-title">
-								<?php safetunnels_icon( 'ti-check' ); ?> <?php esc_html_e( 'What we actually collect', 'safetunnels' ); ?>
-							</div>
-							<ul>
-								<?php
-								$collected = array(
-									__( 'Anonymous device identifier', 'safetunnels' ),
-									__( 'Subscription status', 'safetunnels' ),
-									__( 'Aggregate traffic (bandwidth) usage', 'safetunnels' ),
-									__( 'In-app preferences', 'safetunnels' ),
-								);
-								foreach ( $collected as $item ) :
-									?>
-									<li class="yes"><?php safetunnels_icon( 'ti-check' ); ?> <?php echo esc_html( $item ); ?></li>
-								<?php endforeach; ?>
-							</ul>
-						</div>
-					</div>
-
-					<p><?php esc_html_e( 'We never claim to collect “no data” — the anonymous identifier and usage figures above are real, but none of them identify you personally.', 'safetunnels' ); ?></p>
+					<h2><span class="legal-num">3</span> <?php esc_html_e( 'How we use information', 'safetunnels' ); ?></h2>
+					<p><?php esc_html_e( 'We use this information to establish and maintain connections, apply plan limits, display usage, manage subscriptions, prevent misuse, troubleshoot problems, and respond to requests. We do not use connection traffic to target advertisements.', 'safetunnels' ); ?></p>
 				</section>
 
 				<section id="s4" class="legal-card glass">
-					<h2><span class="legal-num">4</span> <?php esc_html_e( 'Information We Collect', 'safetunnels' ); ?></h2>
-					<h3><?php esc_html_e( 'Anonymous device identifier', 'safetunnels' ); ?></h3>
-					<p><?php esc_html_e( 'A randomly generated identifier created on first launch. It is used to identify your installation, restore an existing subscription, and prevent loss of access after replacing your device — without ever containing personal information.', 'safetunnels' ); ?></p>
-					<h3><?php esc_html_e( 'Subscription status', 'safetunnels' ); ?></h3>
-					<p><?php esc_html_e( 'Whether your installation is on the Free or Premium plan, so the app can unlock the correct features and enforce plan limits.', 'safetunnels' ); ?></p>
-					<h3><?php esc_html_e( 'Traffic usage statistics', 'safetunnels' ); ?></h3>
-					<p><?php esc_html_e( 'The amount of data (bandwidth) your device has transferred through the tunnel. This is stored strictly as a numeric total, not as a record of destinations or content.', 'safetunnels' ); ?></p>
-					<h3><?php esc_html_e( 'Application preferences', 'safetunnels' ); ?></h3>
-					<p><?php esc_html_e( 'Basic in-app settings, such as your selected connection or display preferences.', 'safetunnels' ); ?></p>
+					<h2><span class="legal-num">4</span> <?php esc_html_e( 'Connection and traffic', 'safetunnels' ); ?></h2>
+					<p><?php esc_html_e( 'To provide an encrypted connection, ', 'safetunnels' ); ?><?php echo esc_html( $app ); ?><?php esc_html_e( ' uses Android\'s VpnService. When you enable the service and grant Android\'s connection permission, network data from the apps covered by your selected mode passes through an encrypted tunnel to the service endpoint. This access is used to route traffic for the connection feature. The app does not redirect traffic from other apps to alter advertising or generate advertising revenue.', 'safetunnels' ); ?></p>
+					<p><?php esc_html_e( 'We record bandwidth totals for usage and plan management. We do not use those totals as a browsing history, and we do not retain the contents of traffic passing through the tunnel. Destination services may still receive information as part of a normal connection.', 'safetunnels' ); ?></p>
 				</section>
 
 				<section id="s5" class="legal-card glass">
-					<h2><span class="legal-num">5</span> <?php esc_html_e( 'How We Use This Information', 'safetunnels' ); ?></h2>
-					<p><?php esc_html_e( 'The limited data described above is used exclusively to:', 'safetunnels' ); ?></p>
-					<ul>
-						<?php
-						$uses = array(
-							__( 'Enforce Free plan bandwidth limits', 'safetunnels' ),
-							__( 'Manage and restore Premium subscriptions', 'safetunnels' ),
-							__( 'Show you your own usage statistics inside the app', 'safetunnels' ),
-							__( 'Identify your device after a reinstall or replacement, so you don\'t lose access you\'ve paid for', 'safetunnels' ),
-						);
-						foreach ( $uses as $item ) :
-							?>
-							<li class="yes"><?php safetunnels_icon( 'ti-check' ); ?> <?php echo esc_html( $item ); ?></li>
-						<?php endforeach; ?>
-					</ul>
+					<h2><span class="legal-num">5</span> <?php esc_html_e( 'Ads and service providers', 'safetunnels' ); ?></h2>
+					<p><?php esc_html_e( 'The free plan uses Google AdMob to display ads. Its SDK may collect or share device identifiers, IP address, approximate location inferred from that address, app interactions, and diagnostic data for advertising, measurement, and fraud prevention. See Google\'s', 'safetunnels' ); ?><?php esc_html_e( ' ', 'safetunnels' ); ?><a class="inline-link" href="<?php echo esc_url( $urls['google_privacy'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Privacy Policy', 'safetunnels' ); ?></a><?php esc_html_e( '. An ad-free entitlement removes ads within the app.', 'safetunnels' ); ?></p>
+					<p><?php esc_html_e( 'Google Play handles in-app payments. RevenueCat helps process purchase events and subscription entitlements using an account identifier and purchase information. Infrastructure providers process data needed to host the connection and account systems.', 'safetunnels' ); ?></p>
 				</section>
 
 				<section id="s6" class="legal-card glass">
-					<h2><span class="legal-num">6</span> <?php esc_html_e( 'Your Network Traffic &amp; Browsing Activity', 'safetunnels' ); ?></h2>
-					<div class="legal-callout">
-						<?php safetunnels_icon( 'ti-eye-off' ); ?>
-						<p><?php esc_html_e( 'We do not inspect, monitor, log, or store the content of your network traffic.', 'safetunnels' ); ?></p>
-					</div>
-					<p>
-						<?php
-						printf(
-							/* translators: %s: app name. */
-							esc_html__( '%s does not keep browsing history, does not record the websites or apps you visit through the tunnel, and does not inspect transmitted content. The only traffic-related figure we retain is a total bandwidth count used for plan enforcement, described in Section 4.', 'safetunnels' ),
-							esc_html( $app )
-						);
-						?>
-					</p>
+					<h2><span class="legal-num">6</span> <?php esc_html_e( 'Sharing and security', 'safetunnels' ); ?></h2>
+					<p><?php esc_html_e( 'We share information with the providers described above when needed for ads, payments, subscriptions, hosting, and operation of the service, or when required by law. We do not sell user information. Data traveling between your device and the connection endpoint is encrypted. We use access controls and other reasonable safeguards for stored information, although no system can guarantee absolute security.', 'safetunnels' ); ?></p>
 				</section>
 
 				<section id="s7" class="legal-card glass">
-					<h2><span class="legal-num">7</span> <?php esc_html_e( 'Advertising — Google AdMob', 'safetunnels' ); ?></h2>
-					<p>
-						<?php
-						printf(
-							/* translators: %s: app name. */
-							esc_html__( 'The Free version of %s displays advertisements served through Google AdMob. AdMob may collect and process information — such as advertising identifiers and device information — in accordance with Google\'s own Privacy Policy, independently of the data described in this document.', 'safetunnels' ),
-							esc_html( $app )
-						);
-						?>
-					</p>
-					<ul>
-						<li>
-							<?php safetunnels_icon( 'ti-external-link' ); ?>
-							<a class="inline-link" href="<?php echo esc_url( $urls['google_privacy'] ); ?>" target="_blank" rel="noopener nofollow"><?php esc_html_e( 'Google Privacy Policy', 'safetunnels' ); ?></a>
-						</li>
-						<li>
-							<?php safetunnels_icon( 'ti-external-link' ); ?>
-							<a class="inline-link" href="<?php echo esc_url( $urls['google_admob'] ); ?>" target="_blank" rel="noopener nofollow"><?php esc_html_e( 'Google AdMob Policy', 'safetunnels' ); ?></a>
-						</li>
-					</ul>
-					<p><?php esc_html_e( 'Upgrading to Premium removes all advertisements from the app.', 'safetunnels' ); ?></p>
+					<h2><span class="legal-num">7</span> <?php esc_html_e( 'Retention', 'safetunnels' ); ?></h2>
+					<p><?php esc_html_e( 'We keep account, subscription, connection, and usage information while needed to provide the service. After a deletion request, we remove associated data, subject to records we must keep for legal, payment, security, or fraud prevention purposes. Third-party providers may have separate retention practices.', 'safetunnels' ); ?></p>
 				</section>
 
 				<section id="s8" class="legal-card glass">
-					<h2><span class="legal-num">8</span> <?php esc_html_e( 'Data Sharing and Sale', 'safetunnels' ); ?></h2>
-					<p>
-						<?php
-						printf(
-							/* translators: %s: app name. */
-							esc_html__( '%s does not sell user information to any third party, and does not share your data with advertisers beyond what is inherently required for Google AdMob to serve ads, as described in Section 7. We do not share VPN traffic with third parties.', 'safetunnels' ),
-							esc_html( $app )
-						);
-						?>
-					</p>
-				</section>
-
-				<section id="s9" class="legal-card glass">
-					<h2><span class="legal-num">9</span> <?php esc_html_e( 'Third-Party Services', 'safetunnels' ); ?></h2>
-					<p>
-						<?php
-						printf(
-							/* translators: %s: app name. */
-							esc_html__( '%s relies on the following third-party services only:', 'safetunnels' ),
-							esc_html( $app )
-						);
-						?>
-					</p>
-					<ul>
-						<li class="yes"><?php safetunnels_icon( 'ti-brand-google' ); ?> <?php esc_html_e( 'Google Play Services', 'safetunnels' ); ?></li>
-						<li class="yes"><?php safetunnels_icon( 'ti-ad' ); ?> <?php esc_html_e( 'Google AdMob', 'safetunnels' ); ?></li>
-						<li class="yes"><?php safetunnels_icon( 'ti-credit-card' ); ?> <?php esc_html_e( 'RevenueCat and Stripe, for web card payments only', 'safetunnels' ); ?></li>
-					</ul>
-					<p>
-						<?php
-						printf(
-							/* translators: %s: app name. */
-							esc_html__( '%s does not integrate Firebase Analytics, Crashlytics, or any other analytics or crash-reporting SDK beyond what is listed above.', 'safetunnels' ),
-							esc_html( $app )
-						);
-						?>
-					</p>
-				</section>
-
-				<section id="s10" class="legal-card glass">
-					<h2><span class="legal-num">10</span> <?php esc_html_e( 'Data Security', 'safetunnels' ); ?></h2>
-					<p>
-						<?php
-						printf(
-							/* translators: %s: app name. */
-							esc_html__( 'All traffic between the app and %s servers is encrypted in transit. Backend systems that store the anonymous identifier, subscription status, and usage totals are protected with restricted access controls, and we follow reasonable, current security practices to safeguard this information against unauthorized access, alteration, or disclosure.', 'safetunnels' ),
-							esc_html( $app )
-						);
-						?>
-					</p>
-				</section>
-
-				<section id="s11" class="legal-card glass">
-					<h2><span class="legal-num">11</span> <?php esc_html_e( 'Data Retention', 'safetunnels' ); ?></h2>
-					<p><?php esc_html_e( 'We retain the anonymous identifier, subscription status, and traffic usage totals only for as long as needed to provide the service described in this policy, or until you request deletion as described in Section 13.', 'safetunnels' ); ?></p>
-				</section>
-
-				<section id="s12" class="legal-card glass">
-					<h2><span class="legal-num">12</span> <?php esc_html_e( 'Children\'s Privacy', 'safetunnels' ); ?></h2>
-					<p>
-						<?php
-						printf(
-							/* translators: %s: app name. */
-							esc_html__( '%s is not directed toward children under the age of 13, and we do not knowingly collect information from children under 13. If you believe a child has provided information to us, please contact us and we will take appropriate action.', 'safetunnels' ),
-							esc_html( $app )
-						);
-						?>
-					</p>
+					<h2><span class="legal-num">8</span> <?php esc_html_e( 'Children', 'safetunnels' ); ?></h2>
+					<p><?php echo esc_html( $app ); ?><?php esc_html_e( ' is not intended for children under 13. If you believe a child has provided information to us, contact us so we can review and remove it as appropriate.', 'safetunnels' ); ?></p>
 				</section>
 
 				<section id="s13" class="legal-card glass">
-					<h2><span class="legal-num">13</span> <?php esc_html_e( 'Account Deletion &amp; Your Rights', 'safetunnels' ); ?></h2>
-					<p><?php esc_html_e( 'Users can permanently delete their account and associated data from within the app by using the “Delete Account” option in the Profile section. This immediately and permanently removes the data associated with your anonymous device identifier, including your subscription status and traffic usage totals.', 'safetunnels' ); ?></p>
-					<p>
-						<?php
-						printf(
-							/* translators: %s: app name. */
-							esc_html__( '%s does not retain any information that can be recovered on your behalf — there is no personal profile to restore. If you\'re unable to access the app, or have questions about how your information is handled, you can also contact us directly.', 'safetunnels' ),
-							esc_html( $app )
-						);
-						?>
-					</p>
+					<h2><span class="legal-num">9</span> <?php esc_html_e( 'Your choices and deletion', 'safetunnels' ); ?></h2>
+					<p><?php esc_html_e( 'You can stop the connection in the app or revoke its permission in Android settings. You can request deletion of your account and associated data from the Profile section of the app or by emailing us below. Please include enough information to identify the account; we may need to verify the request. Deleting the account does not cancel a Google Play subscription. Manage or cancel it in Google Play.', 'safetunnels' ); ?></p>
 					<div class="legal-cta-row">
-						<a class="legal-btn" href="<?php echo esc_url( safetunnels_mailto( 'Account Deletion Request' ) ); ?>">
-							<?php safetunnels_icon( 'ti-trash' ); ?> <?php esc_html_e( 'Request Account Deletion', 'safetunnels' ); ?>
-						</a>
-						<a class="legal-btn out" href="<?php echo esc_url( safetunnels_mailto( 'Privacy Question' ) ); ?>">
-							<?php safetunnels_icon( 'ti-shield-question' ); ?> <?php esc_html_e( 'Ask a Privacy Question', 'safetunnels' ); ?>
-						</a>
+						<a class="legal-btn" href="<?php echo esc_url( safetunnels_mailto( 'Account Deletion Request' ) ); ?>"><?php safetunnels_icon( 'ti-trash' ); ?><?php esc_html_e( ' Request Account Deletion', 'safetunnels' ); ?></a>
+						<a class="legal-btn out" href="<?php echo esc_url( safetunnels_mailto( 'Privacy Question' ) ); ?>"><?php safetunnels_icon( 'ti-shield-question' ); ?><?php esc_html_e( ' Ask a Privacy Question', 'safetunnels' ); ?></a>
 					</div>
 				</section>
 
 				<section id="s14" class="legal-card glass">
-					<h2><span class="legal-num">14</span> <?php esc_html_e( 'Changes to This Policy', 'safetunnels' ); ?></h2>
-					<p>
-						<?php
-						printf(
-							/* translators: 1: developer, 2: app name. */
-							esc_html__( '%1$s may update this Privacy Policy from time to time to reflect changes in the app, our practices, or legal requirements. Material changes will be reflected by updating the “Last updated” date at the top of this page. Continued use of %2$s after changes are posted constitutes acceptance of the revised policy.', 'safetunnels' ),
-							esc_html( $developer ),
-							esc_html( $app )
-						);
-						?>
-					</p>
+					<h2><span class="legal-num">10</span> <?php esc_html_e( 'Changes', 'safetunnels' ); ?></h2>
+					<p><?php esc_html_e( 'We may update this policy when the app or our data practices change. The date at the top of this page shows the latest update. Material changes will be communicated through the app or this page as appropriate.', 'safetunnels' ); ?></p>
 				</section>
 
 				<section id="s15" class="legal-card glass">
-					<h2><span class="legal-num">15</span> <?php esc_html_e( 'Contact Us', 'safetunnels' ); ?></h2>
-					<p>
-						<?php
-						printf(
-							/* translators: 1: app name, 2: developer, 3: email link. */
-							esc_html__( 'If you have questions about this Privacy Policy or how %1$s handles information, contact %2$s at %3$s.', 'safetunnels' ),
-							esc_html( $app ),
-							esc_html( $developer ),
-							'<a class="inline-link" href="' . esc_url( safetunnels_mailto( 'Privacy Policy Question' ) ) . '">' . esc_html( $email ) . '</a>'
-						);
-						?>
-					</p>
+					<h2><span class="legal-num">11</span> <?php esc_html_e( 'Contact', 'safetunnels' ); ?></h2>
+					<p><?php esc_html_e( 'For privacy questions or deletion requests, contact ', 'safetunnels' ); ?><?php echo esc_html( $developer ); ?><?php esc_html_e( ' at', 'safetunnels' ); ?><?php esc_html_e( ' ', 'safetunnels' ); ?><a class="inline-link" href="<?php echo esc_url( safetunnels_mailto( 'Privacy Policy Question' ) ); ?>"><?php echo esc_html( $email ); ?></a><?php esc_html_e( '.', 'safetunnels' ); ?></p>
 				</section>
 			</div>
 		</div>

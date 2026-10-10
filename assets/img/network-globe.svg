@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="560" viewBox="0 0 560 560" fill="none">
+  <defs>
+    <radialGradient id="ocean" cx=".34" cy=".27" r=".8"><stop stop-color="#fff"/><stop offset=".65" stop-color="#f2faf5"/><stop offset="1" stop-color="#d5ebe0"/></radialGradient>
+    <linearGradient id="route" x1="115" y1="100" x2="390" y2="400" gradientUnits="userSpaceOnUse"><stop stop-color="#7abca1" stop-opacity=".15"/><stop offset=".6" stop-color="#15996e"/><stop offset="1" stop-color="#086449"/></linearGradient>
+    <pattern id="dots" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="3.5" cy="3.5" r="1.55" fill="#82bfa1"/></pattern>
+    <clipPath id="sphere"><circle cx="280" cy="280" r="210"/></clipPath>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#346f53" flood-opacity=".1"/></filter>
+  </defs>
+  <circle cx="280" cy="280" r="258" stroke="#a6cbbb" stroke-opacity=".3" stroke-dasharray="3 9"/>
+  <circle cx="280" cy="280" r="235" stroke="#b6d6c5" stroke-opacity=".6"/>
+  <circle cx="280" cy="280" r="210" fill="url(#ocean)" filter="url(#shadow)"/>
+  <g clip-path="url(#sphere)" stroke="#97c2aa" stroke-opacity=".24">
+    <ellipse cx="280" cy="280" rx="148" ry="210"/>
+    <ellipse cx="280" cy="280" rx="75" ry="210"/>
+    <path d="M70 280h420M280 70v420"/>
+    <ellipse cx="280" cy="280" rx="210" ry="69"/>
+    <ellipse cx="280" cy="280" rx="210" ry="137"/>
+    <g fill="url(#dots)" stroke="none">
+      <path d="m73 155 28-23 42-3 16 16 34-15 35 13-7 20-20 4-7 22-17 8-14 31-24 14-2 23 21 15-9 19-18-20-7-34-24-14-6-27-20-12-16-27Z"/>
+      <path d="m164 295 28-12 25 12 19 22-5 26-18 28-8 36-22 35-15-15 6-29-12-25-7-32 7-20Z"/>
+      <path d="m219 78 31 10 1 28-19 13-18-20Z"/>
+      <path d="m257 170 14-18 26 2 13-18 28 7 11-16 50 8 32 21 26 2 22 28 9 37-17 17-25-16-16 10-10 34-21-6-13-29-23-7-4 20-19-4-9-28-21 5-15-18-11 13-20-9 2-21-17 3Z"/>
+      <path d="m275 229 30-3 25 14 12 26-9 30-17 16-7 32-20 17-13-25-8-25-14-18-4-31Z"/>
+      <path d="m360 251 16 12 15 29-10 24-12-23-11-15ZM408 285l15 15 6 21-11 7-11-18ZM436 257l8-14 6 4-2 20Z"/>
+      <path d="m411 362 31-17 36 14 6 29-20 16-30-8-22 6-12-15ZM329 344l10-14 4 23-10 13Z"/>
+    </g>
+    <g stroke="url(#route)" stroke-width="1.8" stroke-opacity="1">
+      <path d="M126 218Q228 75 345 238"/>
+      <path d="M286 181Q343 170 345 238"/>
+      <path d="M203 336Q228 173 345 238"/>
+      <path d="M445 370Q476 242 345 238"/>
+      <path d="M436 214Q391 160 345 238"/>
+    </g>
+    <g fill="#18986b" stroke="#fff" stroke-width="3"><circle cx="126" cy="218" r="5"/><circle cx="286" cy="181" r="5"/><circle cx="203" cy="336" r="5"/><circle cx="445" cy="370" r="5"/><circle cx="436" cy="214" r="5"/></g>
+    <circle cx="345" cy="238" r="22" fill="#15996e" fill-opacity=".1" stroke="none"/>
+    <circle cx="345" cy="238" r="12" fill="#15996e" fill-opacity=".15" stroke="none"/>
+    <circle cx="345" cy="238" r="6" fill="#078657" stroke="#fff" stroke-width="3"/>
+  </g>
+  <circle cx="280" cy="280" r="210" stroke="#b4d2bf" stroke-opacity=".6"/>
+  <g fill="#14875f"><circle cx="104" cy="121" r="4"/><circle cx="519" cy="281" r="4"/><circle cx="152" cy="484" r="3"/></g>
+</svg>

@@ -29,7 +29,7 @@ get_header();
 			<p class="nf-desc"><?php esc_html_e( 'Here are a few places that will get you back on track.', 'safetunnels' ); ?></p>
 
 			<div class="nf-links">
-				<a class="legal-btn" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+				<a class="legal-btn" href="<?php echo esc_url( safetunnels_page_url( 'home' ) ); ?>">
 					<?php safetunnels_icon( 'ti-arrow-left' ); ?>
 					<?php
 					printf(

@@ -1,3 +1,8 @@
 .local-wordpress/
 database.sqlite
 .htaccess
+
+# Build output and Python deployment tooling caches.
+dist/
+__pycache__/
+*.pyc

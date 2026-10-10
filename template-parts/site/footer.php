@@ -18,7 +18,7 @@ $st_columns = array(
 			array( __( 'Download', 'safetunnels' ), safetunnels_page_url( 'download' ) ),
 			array( __( 'Pricing', 'safetunnels' ), safetunnels_page_url( 'pricing' ) ),
 			array( __( 'Iranian Apps', 'safetunnels' ), safetunnels_page_url( 'apps' ) ),
-			array( __( 'Features', 'safetunnels' ), home_url( '/#features' ) ),
+			array( __( 'Features', 'safetunnels' ), safetunnels_page_url( 'home' ) . '#features' ),
 		),
 	),
 	array(
@@ -87,6 +87,7 @@ $st_columns = array(
 
 	<div class="footer-row">
 		<div class="footer-links">
+			<a href="<?php echo esc_url( safetunnels_page_url( 'hub' ) ); ?>"><?php esc_html_e( '← Back to Hub', 'safetunnels' ); ?></a>
 			<?php
 			// The footer link row is a flex row of bare anchors, so the menu is
 			// rendered by hand rather than through the list-based default walker.

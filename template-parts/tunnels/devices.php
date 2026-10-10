@@ -38,7 +38,19 @@ $st_play    = safetunnels_opt( 'google_play_url' );
 			<div class="device-panel active">
 				<div class="device-grid">
 					<div class="device-visual">
+						<?php if ( 'home' === safetunnels_current_page_key() ) : ?>
+							<div class="download-phone" aria-hidden="true">
+								<div class="phone-camera"></div>
+								<div class="phone-brand"><?php safetunnels_icon( 'ti-route' ); ?> <?php echo esc_html( safetunnels_opt( 'brand_name' ) ); ?></div>
+								<div class="phone-globe"><div class="phone-power"><?php safetunnels_icon( 'ti-power' ); ?></div></div>
+								<div class="phone-status"><span class="pulse"></span> <?php esc_html_e( 'Active', 'safetunnels' ); ?></div>
+								<div class="phone-protocol">WireGuard · AES-256</div>
+								<div class="phone-metrics"><span><b>&lt;20ms</b><?php esc_html_e( 'Avg Latency', 'safetunnels' ); ?></span><span><b><?php echo esc_html( safetunnels_opt( 'stat_countries' ) ); ?></b><?php esc_html_e( 'Countries', 'safetunnels' ); ?></span></div>
+								<div class="phone-home"></div>
+							</div>
+						<?php else : ?>
 						<div class="device-icon"><?php safetunnels_icon( $st_android['icon'] ); ?></div>
+						<?php endif; ?>
 					</div>
 					<div class="device-info">
 						<h3><?php echo esc_html( $st_android['name'] ); ?></h3>

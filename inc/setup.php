@@ -87,16 +87,22 @@ function safetunnels_widgets_init() {
 add_action( 'widgets_init', 'safetunnels_widgets_init' );
 
 /**
- * Which visual shell the current view uses: the landing shell (`tn`) or the
- * document shell (`lg`). Drives both body classes and conditional CSS.
+ * Selects the product landing, document, studio hub or Peeko shell.
+ * Drives both body classes and conditional asset loading.
  *
- * @return string `tn` or `lg`.
+ * @return string `tn`, `lg`, `hub` or `peeko`.
  */
 function safetunnels_shell() {
 	$landing = array( 'home', 'pricing', 'download', 'apps' );
 	$key     = safetunnels_current_page_key();
 
-	$shell = ( is_front_page() || in_array( $key, $landing, true ) ) ? 'tn' : 'lg';
+	if ( 'hub' === $key ) {
+		return 'hub';
+	}
+	if ( in_array( $key, array( 'peeko', 'peeko_privacy' ), true ) ) {
+		return 'peeko';
+	}
+	$shell = in_array( $key, $landing, true ) ? 'tn' : 'lg';
 
 	/**
 	 * Filters the visual shell for the current view.
@@ -114,6 +120,9 @@ function safetunnels_shell() {
  */
 function safetunnels_body_class( $classes ) {
 	$classes[] = 'st-shell-' . safetunnels_shell();
+	if ( in_array( safetunnels_shell(), array( 'tn', 'lg' ), true ) ) {
+		$classes[] = 'st-product';
+	}
 
 	$key = safetunnels_current_page_key();
 	if ( $key ) {

@@ -100,7 +100,7 @@ get_header();
 			<?php endif; ?>
 
 			<div class="pr-actions">
-				<a class="legal-btn" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+				<a class="legal-btn" href="<?php echo esc_url( safetunnels_page_url( 'home' ) ); ?>">
 					<?php safetunnels_icon( 'ti-home' ); ?>
 					<?php
 					printf(

@@ -21,10 +21,14 @@ self-contained WordPress theme with no page-builder or SEO plugin required.
 
 1. Upload the `safetunnels` folder to `wp-content/themes/`.
 2. Activate the theme under Appearance → Themes. Activation automatically
-   creates every page the theme needs (Home, Download, Pricing, Iranian
+   creates every page the theme needs (Studio Hub, Tunnel Network, Peeko
+   Privacy, Download, Pricing, Iranian
    Apps, FAQ, Support, Contact, Privacy, Terms, Refund Policy, Cookie
    Policy, Payment Result), assigns their templates, builds the primary
-   navigation menu, and sets the front page.
+   navigation menu, and sets the Studio Hub as the front page.
+   The hub cards lead to /tunnels/ and /peeko/privacy/. SafeTunnels product,
+   legal and support pages live below /tunnels/ (for example,
+   /tunnels/privacy/). Existing flat policy URLs redirect to their new paths.
 3. Open Appearance → Customize → SafeTunnels and fill in:
    - Identity: app name, brand name, developer name, support email.
    - Backend & Tracking: the SafeTunnels API base URL (defaults to

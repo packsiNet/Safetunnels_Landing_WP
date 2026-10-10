@@ -152,7 +152,7 @@ function safetunnels_schema_application() {
 		'operatingSystem'     => 'Android 8.0+',
 		'applicationCategory' => 'SecurityApplication',
 		'applicationSubCategory' => 'VPN',
-		'url'                 => home_url( '/' ),
+		'url'                 => safetunnels_page_url( 'home' ),
 		'downloadUrl'         => safetunnels_apk_url(),
 		'installUrl'          => safetunnels_page_url( 'download' ),
 		'softwareVersion'     => safetunnels_opt( 'apk_version' ),
@@ -428,6 +428,8 @@ function safetunnels_schema_webpage() {
 		$type = 'ContactPage';
 	} elseif ( 'apps' === $key ) {
 		$type = 'CollectionPage';
+	} elseif ( 'hub' === $key ) {
+		$type = 'CollectionPage';
 	} elseif ( is_home() || is_archive() ) {
 		$type = 'CollectionPage';
 	} elseif ( is_search() ) {
@@ -498,11 +500,11 @@ function safetunnels_print_schema() {
 
 	// The app node belongs on the pages that actually talk about the app —
 	// repeating it on every blog post would dilute, not help.
-	if ( is_front_page() || in_array( $key, array( 'download', 'pricing', 'apps' ), true ) ) {
+	if ( in_array( $key, array( 'home', 'download', 'pricing', 'apps' ), true ) ) {
 		$graph[] = safetunnels_schema_application();
 	}
 
-	if ( is_front_page() ) {
+	if ( 'home' === $key ) {
 		$graph[] = safetunnels_schema_faq( safetunnels_landing_faq(), 'faq' );
 	}
 

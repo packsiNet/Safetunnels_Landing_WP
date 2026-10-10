@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 						<?php echo safetunnels_track_attrs( safetunnels_opt( 'apk_package' ), 'Tunnel Network APK' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 						<?php safetunnels_icon( 'ti-download' ); ?> <?php esc_html_e( 'Download for Android', 'safetunnels' ); ?>
 					</a>
-					<a class="btn-ghost" href="<?php echo esc_url( safetunnels_page_url( 'pricing' ) ); ?>">
+					<a class="btn-ghost" href="<?php echo esc_url( 'home' === safetunnels_current_page_key() ? '#pricing' : safetunnels_page_url( 'pricing' ) ); ?>">
 						<?php safetunnels_icon( 'ti-crown' ); ?> <?php esc_html_e( 'Compare plans', 'safetunnels' ); ?>
 					</a>
 				</div>

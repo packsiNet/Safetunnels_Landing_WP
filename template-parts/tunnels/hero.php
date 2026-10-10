@@ -68,6 +68,29 @@ $st_heading_tag = isset( $args['h1'] ) && ! $args['h1'] ? 'h2' : 'h1';
 			</div>
 
 			<div class="hero-visual" aria-hidden="true">
+				<?php if ( 'home' === safetunnels_current_page_key() ) : ?>
+					<div class="network-art">
+						<div class="network-halo"></div>
+						<img class="network-globe" src="<?php echo esc_url( safetunnels_asset( 'img/network-globe.svg' ) ); ?>" width="560" height="560" alt="" fetchpriority="high" />
+						<div class="network-shield">
+							<svg viewBox="0 0 48 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 3 44 11v16c0 12-9 21-20 26C13 48 4 39 4 27V11L24 3Z" stroke="currentColor" stroke-width="2.5"/><path d="m15 27 6 6 12-13" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+						</div>
+						<div class="network-card network-security">
+							<span class="network-card-icon"><?php safetunnels_icon( 'ti-lock' ); ?></span>
+							<div><strong>AES-256</strong><span><?php esc_html_e( 'Encrypted', 'safetunnels' ); ?></span></div>
+							<span class="network-check"><?php safetunnels_icon( 'ti-check' ); ?></span>
+						</div>
+						<div class="network-card network-speed">
+							<span class="network-card-icon"><?php safetunnels_icon( 'ti-bolt' ); ?></span>
+							<div><strong>&lt;20ms</strong><span><?php esc_html_e( 'Avg Latency', 'safetunnels' ); ?></span></div>
+							<span class="network-bars"><b></b><b></b><b></b><b></b></span>
+						</div>
+						<div class="network-app network-app-one"><img src="<?php echo esc_url( safetunnels_asset( 'img/apps/appicon_blu.webp' ) ); ?>" width="44" height="44" alt="" /></div>
+						<div class="network-app network-app-two"><img src="<?php echo esc_url( safetunnels_asset( 'img/apps/appicon_com_digikala.webp' ) ); ?>" width="44" height="44" alt="" /></div>
+						<div class="network-app network-app-three"><img src="<?php echo esc_url( safetunnels_asset( 'img/apps/appicon_mellat.webp' ) ); ?>" width="44" height="44" alt="" /></div>
+						<div class="network-caption"><span class="pulse"></span> WireGuard · <?php esc_html_e( 'Active', 'safetunnels' ); ?></div>
+					</div>
+				<?php else : ?>
 				<div class="orb-wrap">
 					<div class="orb-ring r1"></div>
 					<div class="orb-ring r2"></div>
@@ -89,6 +112,7 @@ $st_heading_tag = isset( $args['h1'] ) && ! $args['h1'] ? 'h2' : 'h1';
 						</div>
 					</div>
 				</div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>

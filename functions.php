@@ -24,6 +24,7 @@ $safetunnels_modules = array(
 	'inc/enqueue.php',
 	'inc/options.php',
 	'inc/rest.php',
+	'inc/deployment.php',
 	'inc/seo.php',
 	'inc/schema.php',
 	'inc/template-tags.php',

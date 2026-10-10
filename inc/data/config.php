@@ -48,7 +48,8 @@ function safetunnels_defaults() {
 		// ── Legal ──────────────────────────────────────────────────────
 		'legal_effective'  => '2026-07-20',
 		'legal_updated'    => '2026-07-20',
-		'privacy_version'  => '1.0',
+		'privacy_updated'  => '2026-10-07',
+		'privacy_version'  => '1.1',
 		'terms_version'    => '1.0',
 
 		// ── Hero counters ──────────────────────────────────────────────

@@ -13,6 +13,7 @@
 defined( 'ABSPATH' ) || exit;
 
 const SAFETUNNELS_PAGES_OPTION = 'safetunnels_pages';
+const SAFETUNNELS_PAGES_STRUCTURE_VERSION = '2';
 
 /**
  * Definition of every page the theme manages.
@@ -23,13 +24,36 @@ function safetunnels_page_registry() {
 	$app = safetunnels_opt( 'app_name' );
 
 	$pages = array(
-		'home'           => array(
-			'title'    => $app,
-			'slug'     => 'home',
-			'template' => 'page-templates/template-home.php',
+		'hub'            => array(
+			'title'    => 'Studio Hub',
+			'slug'     => 'studio',
+			'template' => 'page-templates/template-hub.php',
 			'front'    => true,
 			'nav'      => false,
+			'desc'     => 'Two products, one universe. Explore Tunnel Network for private, encrypted connectivity, or read the privacy policy for Peeko, our number-finding game.',
+		),
+		'home'           => array(
+			'title'    => $app,
+			'slug'     => 'tunnels',
+			'template' => 'page-templates/template-home.php',
+			'nav'      => false,
 			'desc'     => 'Access every Iranian app from anywhere in the world. SafeTunnels routes only Iranian traffic through an AES-256 encrypted WireGuard tunnel — banking, shopping, streaming — free to start on Android.',
+		),
+		'peeko'          => array(
+			'title'       => 'Peeko',
+			'slug'        => 'peeko',
+			'template'    => 'page-templates/template-peeko-privacy.php',
+			'nav'         => false,
+			'noindex'     => true,
+			'redirect_to' => 'peeko_privacy',
+		),
+		'peeko_privacy'  => array(
+			'title'    => 'Privacy Policy for Peeko',
+			'slug'     => 'privacy',
+			'parent'   => 'peeko',
+			'template' => 'page-templates/template-peeko-privacy.php',
+			'nav'      => false,
+			'desc'     => 'How Peeko handles on-device game information, Google AdMob advertising, data retention, and deletion.',
 		),
 		'download'       => array(
 			'title'    => 'Download',
@@ -78,7 +102,7 @@ function safetunnels_page_registry() {
 			'slug'     => 'privacy',
 			'template' => 'page-templates/template-privacy.php',
 			'nav'      => false,
-			'desc'     => 'How SafeTunnels collects, uses, and protects information — including what we explicitly do not collect, our use of an anonymous device identifier, and our Google AdMob advertising disclosure.',
+			'desc'     => 'How SafeTunnels handles connection, account, usage, advertising, and subscription information.',
 		),
 		'terms'          => array(
 			'title'    => 'Terms of Service',
@@ -111,6 +135,13 @@ function safetunnels_page_registry() {
 		),
 	);
 
+	foreach ( $pages as $key => &$page ) {
+		if ( ! in_array( $key, array( 'hub', 'home', 'peeko', 'peeko_privacy' ), true ) ) {
+			$page['parent'] = 'home';
+		}
+	}
+	unset( $page );
+
 	/**
 	 * Filters the theme's page registry.
 	 *
@@ -137,9 +168,27 @@ function safetunnels_page_id( $key ) {
 		return 0;
 	}
 
-	$page = get_page_by_path( $registry[ $key ]['slug'] );
+	$page = get_page_by_path( safetunnels_page_path( $key ) );
 
 	return $page ? (int) $page->ID : 0;
+}
+
+/**
+ * Returns the hierarchical path declared by a registry entry.
+ *
+ * @param string $key Registry key.
+ * @return string
+ */
+function safetunnels_page_path( $key ) {
+	$registry = safetunnels_page_registry();
+	$parts    = array();
+	$visited  = array();
+	while ( isset( $registry[ $key ] ) && ! isset( $visited[ $key ] ) ) {
+		$visited[ $key ] = true;
+		array_unshift( $parts, $registry[ $key ]['slug'] );
+		$key = isset( $registry[ $key ]['parent'] ) ? $registry[ $key ]['parent'] : '';
+	}
+	return implode( '/', $parts );
 }
 
 /**
@@ -165,7 +214,7 @@ function safetunnels_page_url( $key ) {
 		return home_url( '/' );
 	}
 
-	return home_url( '/' . $registry[ $key ]['slug'] . '/' );
+	return home_url( '/' . safetunnels_page_path( $key ) . '/' );
 }
 
 /**
@@ -191,7 +240,7 @@ function safetunnels_current_page_key() {
 
 /**
  * Creates any missing registry page, assigns its template, and points the
- * front page at the landing template. Runs once on theme activation.
+ * front page at the studio hub. Preserves existing page IDs and content.
  *
  * @return void
  */
@@ -203,19 +252,23 @@ function safetunnels_install_pages() {
 		$existing = isset( $map[ $key ] ) ? get_post( $map[ $key ] ) : null;
 
 		if ( ! $existing ) {
-			$found = get_page_by_path( $page['slug'] );
+			$found = get_page_by_path( safetunnels_page_path( $key ) );
 			if ( $found ) {
 				$existing = $found;
 			}
 		}
 
+		$parent = ! empty( $page['parent'] ) && isset( $map[ $page['parent'] ] ) ? (int) $map[ $page['parent'] ] : 0;
+
 		if ( $existing && 'page' === $existing->post_type ) {
 			$id = (int) $existing->ID;
-			if ( 'publish' !== $existing->post_status ) {
+			if ( 'publish' !== $existing->post_status || $existing->post_name !== $page['slug'] || (int) $existing->post_parent !== $parent ) {
 				wp_update_post(
 					array(
 						'ID'          => $id,
 						'post_status' => 'publish',
+							'post_name'   => $page['slug'],
+							'post_parent' => $parent,
 					)
 				);
 			}
@@ -224,6 +277,7 @@ function safetunnels_install_pages() {
 				array(
 					'post_title'   => $page['title'],
 					'post_name'    => $page['slug'],
+					'post_parent'  => $parent,
 					'post_status'  => 'publish',
 					'post_type'    => 'page',
 					'post_content' => '',
@@ -252,9 +306,12 @@ function safetunnels_install_pages() {
 
 	update_option( SAFETUNNELS_PAGES_OPTION, $map );
 
-	if ( isset( $map['home'] ) ) {
-		update_option( 'show_on_front', 'page' );
-		update_option( 'page_on_front', $map['home'] );
+	foreach ( $registry as $key => $page ) {
+		if ( ! empty( $page['front'] ) && isset( $map[ $key ] ) ) {
+			update_option( 'show_on_front', 'page' );
+			update_option( 'page_on_front', $map[ $key ] );
+			break;
+		}
 	}
 
 	// A posts page keeps the blog off the landing page and gives articles a
@@ -280,7 +337,46 @@ function safetunnels_install_pages() {
 	if ( isset( $map['privacy'] ) ) {
 		update_option( 'wp_page_for_privacy_policy', $map['privacy'] );
 	}
+	update_option( 'safetunnels_pages_structure_version', SAFETUNNELS_PAGES_STRUCTURE_VERSION );
 }
+
+/** Migrate an already active theme once when its page structure changes. */
+function safetunnels_upgrade_page_structure() {
+	if ( SAFETUNNELS_PAGES_STRUCTURE_VERSION === get_option( 'safetunnels_pages_structure_version' ) ) {
+		return;
+	}
+	safetunnels_after_switch_theme();
+}
+add_action( 'init', 'safetunnels_upgrade_page_structure', 20 );
+
+/** Keep former flat URLs working after the hierarchical migration. */
+function safetunnels_redirect_product_pages() {
+	$registry = safetunnels_page_registry();
+	$key      = safetunnels_current_page_key();
+	if ( $key && ! empty( $registry[ $key ]['redirect_to'] ) ) {
+		wp_safe_redirect( safetunnels_page_url( $registry[ $key ]['redirect_to'] ), 301 );
+		exit;
+	}
+	if ( ! is_404() ) {
+		return;
+	}
+	$path = trim( (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ), '/' );
+	$base = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+	if ( $base && 0 === strpos( $path, $base . '/' ) ) {
+		$path = substr( $path, strlen( $base ) + 1 );
+	}
+	$aliases = array( 'home' => 'home' );
+	foreach ( $registry as $page_key => $page ) {
+		if ( isset( $page['parent'] ) && 'home' === $page['parent'] ) {
+			$aliases[ $page['slug'] ] = $page_key;
+		}
+	}
+	if ( isset( $aliases[ $path ] ) ) {
+		wp_safe_redirect( safetunnels_page_url( $aliases[ $path ] ), 301 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'safetunnels_redirect_product_pages', 1 );
 
 /**
  * Builds the primary menu from the registry and assigns it, so a fresh install

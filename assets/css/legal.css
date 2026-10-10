@@ -5,8 +5,8 @@
 
 .lg-page {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: #fff;
-  background: #050a14;
+  color: #172d28;
+  background: #fbfcf9;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   min-height: 100vh;
@@ -29,7 +29,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse 120% 70% at 50% 0%, #0d2318 0%, #091a14 30%, #050a14 70%);
+  background: radial-gradient(ellipse 120% 70% at 50% 0%, #0d2318 0%, #091a14 30%, #fbfcf9 70%);
   overflow: hidden;
 }
 .lg-page .blob {
@@ -44,8 +44,8 @@
   height: 600px;
   background: radial-gradient(
     circle,
-    rgba(52, 211, 153, 0.34) 0%,
-    rgba(52, 211, 153, 0.08) 40%,
+    rgba(7, 134, 94, 0.34) 0%,
+    rgba(7, 134, 94, 0.08) 40%,
     transparent 70%
   );
   filter: blur(52px);
@@ -70,7 +70,7 @@
   right: -160px;
   width: 520px;
   height: 520px;
-  background: radial-gradient(circle, rgba(52, 211, 153, 0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(7, 134, 94, 0.18) 0%, transparent 70%);
   filter: blur(52px);
   animation: lg-float3 32s ease-in-out infinite;
 }
@@ -124,16 +124,16 @@
   inset: 0;
   opacity: 0.45;
   background-image:
-    radial-gradient(circle at 8% 12%, rgba(255, 255, 255, 0.7) 0.6px, transparent 1.2px),
-    radial-gradient(circle at 22% 38%, rgba(255, 255, 255, 0.5) 0.5px, transparent 1px),
-    radial-gradient(circle at 47% 18%, rgba(255, 255, 255, 0.6) 0.5px, transparent 1px),
-    radial-gradient(circle at 68% 32%, rgba(255, 255, 255, 0.4) 0.5px, transparent 1px),
-    radial-gradient(circle at 85% 12%, rgba(255, 255, 255, 0.5) 0.6px, transparent 1.2px),
-    radial-gradient(circle at 12% 62%, rgba(255, 255, 255, 0.45) 0.5px, transparent 1px),
-    radial-gradient(circle at 38% 72%, rgba(255, 255, 255, 0.35) 0.5px, transparent 1px),
-    radial-gradient(circle at 72% 64%, rgba(255, 255, 255, 0.5) 0.5px, transparent 1px),
-    radial-gradient(circle at 92% 80%, rgba(255, 255, 255, 0.4) 0.5px, transparent 1px),
-    radial-gradient(circle at 18% 92%, rgba(255, 255, 255, 0.45) 0.5px, transparent 1px);
+    radial-gradient(circle at 8% 12%, rgba(23, 45, 40, 0.7) 0.6px, transparent 1.2px),
+    radial-gradient(circle at 22% 38%, rgba(23, 45, 40, 0.5) 0.5px, transparent 1px),
+    radial-gradient(circle at 47% 18%, rgba(23, 45, 40, 0.6) 0.5px, transparent 1px),
+    radial-gradient(circle at 68% 32%, rgba(23, 45, 40, 0.4) 0.5px, transparent 1px),
+    radial-gradient(circle at 85% 12%, rgba(23, 45, 40, 0.5) 0.6px, transparent 1.2px),
+    radial-gradient(circle at 12% 62%, rgba(23, 45, 40, 0.45) 0.5px, transparent 1px),
+    radial-gradient(circle at 38% 72%, rgba(23, 45, 40, 0.35) 0.5px, transparent 1px),
+    radial-gradient(circle at 72% 64%, rgba(23, 45, 40, 0.5) 0.5px, transparent 1px),
+    radial-gradient(circle at 92% 80%, rgba(23, 45, 40, 0.4) 0.5px, transparent 1px),
+    radial-gradient(circle at 18% 92%, rgba(23, 45, 40, 0.45) 0.5px, transparent 1px);
   animation: lg-twinkle 8s ease-in-out infinite;
 }
 @keyframes lg-twinkle {
@@ -179,7 +179,7 @@
   background: rgba(5, 10, 20, 0.75);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 0.5px solid rgba(23, 45, 40, 0.1);
 }
 .lg-page .nav-row {
   max-width: 1100px;
@@ -203,29 +203,29 @@
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  background: linear-gradient(135deg, #34d399, #059669);
+  background: linear-gradient(135deg, #07865e, #059669);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 14px rgba(52, 211, 153, 0.4);
+  box-shadow: 0 4px 14px rgba(7, 134, 94, 0.4);
   flex-shrink: 0;
 }
 .lg-page .nav-logo-icon i {
   font-size: 16px;
-  color: #fff;
+  color: #172d28;
 }
 .lg-page .nav-links {
   display: flex;
   gap: 24px;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(23, 45, 40, 0.6);
   margin-right: 20px;
 }
 .lg-page .nav-links a:hover {
-  color: #fff;
+  color: #172d28;
 }
 .lg-page .nav-links a.active {
-  color: #34d399;
+  color: #07865e;
   font-weight: 600;
 }
 .lg-page .back-btn {
@@ -234,17 +234,17 @@
   gap: 6px;
   padding: 7px 12px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  background: rgba(23, 45, 40, 0.05);
+  border: 0.5px solid rgba(23, 45, 40, 0.14);
   font-size: 11px;
   letter-spacing: 0.3px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(23, 45, 40, 0.5);
   transition: all 0.2s;
   flex-shrink: 0;
 }
 .lg-page .back-btn:hover {
-  background: rgba(255, 255, 255, 0.09);
-  color: #fff;
+  background: rgba(23, 45, 40, 0.09);
+  color: #172d28;
 }
 @media (max-width: 640px) {
   .lg-page .nav-links {
@@ -264,7 +264,7 @@
   font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #34d399;
+  color: #07865e;
   margin-bottom: 16px;
 }
 .lg-page .sec-label::before,
@@ -272,7 +272,7 @@
   content: '';
   width: 26px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #34d399, transparent);
+  background: linear-gradient(90deg, transparent, #07865e, transparent);
 }
 .lg-page .lg-title {
   font-size: clamp(28px, 4.4vw, 46px);
@@ -280,11 +280,11 @@
   letter-spacing: -1.2px;
   text-align: center;
   line-height: 1.1;
-  font-family: 'Courier New', monospace;
+  font-family: inherit;
 }
 .lg-page .lg-subtitle {
   font-size: 15px;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(23, 45, 40, 0.58);
   text-align: center;
   margin: 16px auto 0;
   line-height: 1.65;
@@ -298,19 +298,19 @@
 
 /* ── Glass card (matches /tunnels .glass) ── */
 .lg-page .glass {
-  background: rgba(255, 255, 255, 0.055);
-  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  background: rgba(23, 45, 40, 0.055);
+  border: 0.5px solid rgba(23, 45, 40, 0.14);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
   border-radius: 20px;
   box-shadow:
     0 14px 44px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    inset 0 1px 0 rgba(23, 45, 40, 0.1);
 }
 
 /* ── Footer (matches /tunnels footer) ── */
 .lg-page footer {
-  border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+  border-top: 0.5px solid rgba(23, 45, 40, 0.1);
   padding: 40px 0 30px;
   position: relative;
   z-index: 2;
@@ -334,14 +334,14 @@
   width: 28px;
   height: 28px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #34d399, #059669);
+  background: linear-gradient(135deg, #07865e, #059669);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .lg-page .flogo-ico i {
   font-size: 14px;
-  color: #fff;
+  color: #172d28;
 }
 .lg-page .flogo-name {
   font-size: 13px;
@@ -351,15 +351,15 @@
   display: flex;
   gap: 20px;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.48);
+  color: rgba(23, 45, 40, 0.48);
   flex-wrap: wrap;
 }
 .lg-page .footer-links a:hover {
-  color: #fff;
+  color: #172d28;
 }
 .lg-page .footer-copy {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.32);
+  color: rgba(23, 45, 40, 0.32);
 }
 
 /* ── Shared article styling for Privacy / Terms (and reused bits
@@ -379,15 +379,15 @@
   gap: 6px;
   padding: 6px 13px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  background: rgba(23, 45, 40, 0.05);
+  border: 0.5px solid rgba(23, 45, 40, 0.14);
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(23, 45, 40, 0.6);
   letter-spacing: 0.2px;
 }
 .lg-page .legal-chip i {
   font-size: 13px;
-  color: #34d399;
+  color: #07865e;
 }
 
 .lg-page .legal-layout {
@@ -422,7 +422,7 @@
   font-size: 10px;
   letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(23, 45, 40, 0.4);
   margin-bottom: 10px;
 }
 @media (max-width: 860px) {
@@ -435,15 +435,15 @@
   padding: 8px 10px;
   border-radius: 10px;
   font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(23, 45, 40, 0.62);
   transition:
     background 0.18s,
     color 0.18s;
   line-height: 1.4;
 }
 .lg-page .legal-toc a:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
+  background: rgba(23, 45, 40, 0.06);
+  color: #172d28;
 }
 
 .lg-page .legal-sections {
@@ -480,22 +480,22 @@
   width: 28px;
   height: 28px;
   border-radius: 9px;
-  background: rgba(52, 211, 153, 0.12);
-  border: 0.5px solid rgba(52, 211, 153, 0.28);
+  background: rgba(7, 134, 94, 0.12);
+  border: 0.5px solid rgba(7, 134, 94, 0.28);
   font-size: 12px;
   font-weight: 700;
-  color: #34d399;
+  color: #07865e;
   flex-shrink: 0;
 }
 .lg-page .legal-card h3 {
   font-size: 14.5px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(23, 45, 40, 0.9);
   margin: 20px 0 8px;
 }
 .lg-page .legal-card p {
   font-size: 13.5px;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(23, 45, 40, 0.68);
   line-height: 1.75;
   margin-bottom: 12px;
 }
@@ -517,7 +517,7 @@
   align-items: flex-start;
   gap: 10px;
   font-size: 13.5px;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(23, 45, 40, 0.68);
   line-height: 1.6;
 }
 .lg-page .legal-card li i {
@@ -529,15 +529,15 @@
   color: #f87171;
 }
 .lg-page .legal-card li.yes i {
-  color: #34d399;
+  color: #07865e;
 }
 .lg-page .legal-card a.inline-link {
-  color: #34d399;
+  color: #07865e;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 .lg-page .legal-card a.inline-link:hover {
-  color: #6ee7b7;
+  color: #076b4b;
 }
 
 /* Two-column do/don't collection lists */
@@ -555,14 +555,14 @@
 .lg-page .legal-collect-col {
   padding: 16px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  background: rgba(23, 45, 40, 0.03);
+  border: 0.5px solid rgba(23, 45, 40, 0.1);
 }
 .lg-page .legal-collect-col.no {
   border-color: rgba(248, 113, 113, 0.22);
 }
 .lg-page .legal-collect-col.yes {
-  border-color: rgba(52, 211, 153, 0.24);
+  border-color: rgba(7, 134, 94, 0.24);
 }
 .lg-page .legal-collect-title {
   font-size: 11.5px;
@@ -577,7 +577,7 @@
   color: #f87171;
 }
 .lg-page .legal-collect-col.yes .legal-collect-title {
-  color: #34d399;
+  color: #07865e;
 }
 .lg-page .legal-collect-col ul {
   margin: 0;
@@ -594,19 +594,19 @@
   gap: 12px;
   padding: 16px 18px;
   border-radius: 14px;
-  background: rgba(52, 211, 153, 0.07);
-  border: 0.5px solid rgba(52, 211, 153, 0.26);
+  background: rgba(7, 134, 94, 0.07);
+  border: 0.5px solid rgba(7, 134, 94, 0.26);
   margin: 4px 0 14px;
 }
 .lg-page .legal-callout i {
   font-size: 18px;
-  color: #34d399;
+  color: #07865e;
   flex-shrink: 0;
   margin-top: 1px;
 }
 .lg-page .legal-callout p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(23, 45, 40, 0.82);
   font-weight: 500;
 }
 
@@ -626,23 +626,23 @@
   gap: 8px;
   padding: 11px 20px;
   border-radius: 12px;
-  background: #34d399;
-  color: #050a14;
+  background: #07865e;
+  color: #fbfcf9;
   font-size: 13.5px;
   font-weight: 600;
-  box-shadow: 0 6px 18px rgba(52, 211, 153, 0.32);
+  box-shadow: 0 6px 18px rgba(7, 134, 94, 0.32);
   transition:
     transform 0.2s,
     box-shadow 0.2s;
 }
 .lg-page .legal-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(52, 211, 153, 0.42);
+  box-shadow: 0 10px 26px rgba(7, 134, 94, 0.42);
 }
 .lg-page .legal-btn.out {
-  background: rgba(255, 255, 255, 0.07);
-  border: 0.5px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background: rgba(23, 45, 40, 0.07);
+  border: 0.5px solid rgba(23, 45, 40, 0.2);
+  color: #172d28;
   box-shadow: none;
 }
 
@@ -659,11 +659,11 @@
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 10px;
-  font-family: 'Courier New', monospace;
+  font-family: inherit;
 }
 .lg-page .support-cta p {
   font-size: 13.5px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(23, 45, 40, 0.6);
   max-width: 460px;
   margin: 0 auto 22px;
   line-height: 1.6;
@@ -681,16 +681,16 @@
   align-items: center;
   padding: 8px 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  background: rgba(23, 45, 40, 0.05);
+  border: 0.5px solid rgba(23, 45, 40, 0.14);
   font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(23, 45, 40, 0.65);
   transition: all 0.2s;
 }
 .lg-page .faq-jump a:hover {
-  background: rgba(52, 211, 153, 0.12);
-  border-color: rgba(52, 211, 153, 0.34);
-  color: #34d399;
+  background: rgba(7, 134, 94, 0.12);
+  border-color: rgba(7, 134, 94, 0.34);
+  color: #07865e;
 }
 
 .lg-page .faq-category {
@@ -708,14 +708,14 @@
   font-weight: 700;
   letter-spacing: 0.6px;
   text-transform: uppercase;
-  color: #34d399;
+  color: #07865e;
   margin-bottom: 14px;
 }
 .lg-page .faq-category-title::after {
   content: '';
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(52, 211, 153, 0.3), transparent);
+  background: linear-gradient(90deg, rgba(7, 134, 94, 0.3), transparent);
 }
 
 .lg-page .faq-list {
@@ -725,8 +725,8 @@
 }
 .lg-page .faq-item {
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  background: rgba(23, 45, 40, 0.04);
+  border: 0.5px solid rgba(23, 45, 40, 0.12);
   overflow: hidden;
 }
 .lg-page .faq-q {
@@ -747,11 +747,11 @@
   font-family: inherit;
 }
 .lg-page .faq-q:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(23, 45, 40, 0.03);
 }
 .lg-page .faq-q i {
   font-size: 17px;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(23, 45, 40, 0.45);
   transition:
     transform 0.3s,
     color 0.2s;
@@ -759,13 +759,13 @@
 }
 .lg-page .faq-item.open .faq-q i {
   transform: rotate(45deg);
-  color: #34d399;
+  color: #07865e;
 }
 .lg-page .faq-a {
   max-height: 0;
   overflow: hidden;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(23, 45, 40, 0.62);
   line-height: 1.65;
   padding: 0 20px;
   transition:
@@ -802,7 +802,7 @@
   align-items: flex-start;
   gap: 14px;
   padding: 16px 0;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 0.5px solid rgba(23, 45, 40, 0.08);
 }
 .lg-page .contact-row:last-child {
   border-bottom: none;
@@ -815,8 +815,8 @@
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: rgba(52, 211, 153, 0.1);
-  border: 0.5px solid rgba(52, 211, 153, 0.24);
+  background: rgba(7, 134, 94, 0.1);
+  border: 0.5px solid rgba(7, 134, 94, 0.24);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -824,13 +824,13 @@
 }
 .lg-page .contact-ico i {
   font-size: 18px;
-  color: #34d399;
+  color: #07865e;
 }
 .lg-page .contact-label {
   font-size: 10.5px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(23, 45, 40, 0.42);
   margin-bottom: 4px;
 }
 .lg-page .contact-value {
@@ -839,7 +839,7 @@
   word-break: break-word;
 }
 .lg-page .contact-value a {
-  color: #34d399;
+  color: #07865e;
 }
 .lg-page .contact-value a:hover {
   text-decoration: underline;
@@ -856,24 +856,24 @@
   gap: 14px;
   padding: 18px 20px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.045);
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  background: rgba(23, 45, 40, 0.045);
+  border: 0.5px solid rgba(23, 45, 40, 0.12);
   transition:
     background 0.2s,
     border-color 0.2s,
     transform 0.2s;
 }
 .lg-page .reason-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(52, 211, 153, 0.3);
+  background: rgba(23, 45, 40, 0.07);
+  border-color: rgba(7, 134, 94, 0.3);
   transform: translateY(-2px);
 }
 .lg-page .reason-ico {
   width: 38px;
   height: 38px;
   border-radius: 11px;
-  background: rgba(52, 211, 153, 0.1);
-  border: 0.5px solid rgba(52, 211, 153, 0.24);
+  background: rgba(7, 134, 94, 0.1);
+  border: 0.5px solid rgba(7, 134, 94, 0.24);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -881,7 +881,7 @@
 }
 .lg-page .reason-ico i {
   font-size: 17px;
-  color: #34d399;
+  color: #07865e;
 }
 .lg-page .reason-body {
   flex: 1;
@@ -894,11 +894,11 @@
 }
 .lg-page .reason-body p {
   font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.52);
+  color: rgba(23, 45, 40, 0.52);
 }
 .lg-page .reason-card i.ti-chevron-right {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(23, 45, 40, 0.35);
   flex-shrink: 0;
 }
 
@@ -908,13 +908,13 @@
   gap: 10px;
   margin-top: 22px;
   padding-top: 20px;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-top: 0.5px solid rgba(23, 45, 40, 0.08);
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(23, 45, 40, 0.5);
 }
 .lg-page .response-note i {
   font-size: 16px;
-  color: #34d399;
+  color: #07865e;
 }
 
 .lg-page .support-grid {
@@ -939,24 +939,24 @@
   flex-direction: column;
   padding: 24px 22px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.045);
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  background: rgba(23, 45, 40, 0.045);
+  border: 0.5px solid rgba(23, 45, 40, 0.12);
   transition:
     background 0.2s,
     border-color 0.2s,
     transform 0.2s;
 }
 .lg-page .support-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(52, 211, 153, 0.3);
+  background: rgba(23, 45, 40, 0.07);
+  border-color: rgba(7, 134, 94, 0.3);
   transform: translateY(-2px);
 }
 .lg-page .support-ico {
   width: 44px;
   height: 44px;
   border-radius: 13px;
-  background: rgba(52, 211, 153, 0.1);
-  border: 0.5px solid rgba(52, 211, 153, 0.24);
+  background: rgba(7, 134, 94, 0.1);
+  border: 0.5px solid rgba(7, 134, 94, 0.24);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -964,7 +964,7 @@
 }
 .lg-page .support-ico i {
   font-size: 20px;
-  color: #34d399;
+  color: #07865e;
 }
 .lg-page .support-card h3 {
   font-size: 15px;
@@ -973,7 +973,7 @@
 }
 .lg-page .support-card p {
   font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(23, 45, 40, 0.58);
   line-height: 1.58;
   margin-bottom: 14px;
   flex: 1;
@@ -984,7 +984,7 @@
   gap: 6px;
   font-size: 12.5px;
   font-weight: 600;
-  color: #34d399;
+  color: #07865e;
 }
 .lg-page .support-link i {
   font-size: 14px;
@@ -1002,12 +1002,12 @@
   padding: 60px 32px 72px;
 }
 .lg-page .nf-code {
-  font-family: 'Courier New', monospace;
+  font-family: inherit;
   font-size: clamp(64px, 14vw, 120px);
   font-weight: 700;
   letter-spacing: -4px;
   line-height: 1;
-  background: linear-gradient(135deg, #fff 0%, #a7f3d0 50%, #34d399 100%);
+  background: linear-gradient(135deg, #fff 0%, #a7f3d0 50%, #07865e 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1015,7 +1015,7 @@
 }
 .lg-page .nf-desc {
   font-size: 13.5px;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(23, 45, 40, 0.58);
   max-width: 420px;
   line-height: 1.6;
   margin-bottom: 30px;
@@ -1036,16 +1036,16 @@
 .lg-page .nf-shortcuts a {
   padding: 8px 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  background: rgba(23, 45, 40, 0.05);
+  border: 0.5px solid rgba(23, 45, 40, 0.14);
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(23, 45, 40, 0.6);
   transition: all 0.2s;
 }
 .lg-page .nf-shortcuts a:hover {
-  background: rgba(52, 211, 153, 0.12);
-  border-color: rgba(52, 211, 153, 0.34);
-  color: #34d399;
+  background: rgba(7, 134, 94, 0.12);
+  border-color: rgba(7, 134, 94, 0.34);
+  color: #07865e;
 }
 
 .lg-page .pr-wrap {
@@ -1073,13 +1073,13 @@
 }
 
 .lg-page .pr-icon-success {
-  background: rgba(52, 211, 153, 0.14);
+  background: rgba(7, 134, 94, 0.14);
   box-shadow:
-    0 0 0 1px rgba(52, 211, 153, 0.3),
-    0 0 40px rgba(52, 211, 153, 0.28);
+    0 0 0 1px rgba(7, 134, 94, 0.3),
+    0 0 40px rgba(7, 134, 94, 0.28);
 }
 .lg-page .pr-icon-success i {
-  color: #34d399;
+  color: #07865e;
 }
 
 .lg-page .pr-icon-pending {
@@ -1093,11 +1093,11 @@
 }
 
 .lg-page .pr-icon-cancelled {
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.16);
+  background: rgba(23, 45, 40, 0.08);
+  box-shadow: 0 0 0 1px rgba(23, 45, 40, 0.16);
 }
 .lg-page .pr-icon-cancelled i {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(23, 45, 40, 0.6);
 }
 
 .lg-page .pr-icon-failed {
@@ -1123,12 +1123,12 @@
 
 .lg-page .pr-ref {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(23, 45, 40, 0.4);
   margin-bottom: 32px;
-  font-family: 'Courier New', monospace;
+  font-family: inherit;
 }
 .lg-page .pr-ref span {
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(23, 45, 40, 0.68);
 }
 
 .lg-page .pr-actions {

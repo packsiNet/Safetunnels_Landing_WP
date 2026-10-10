@@ -7,10 +7,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$st_version = isset( $args['version'] ) ? $args['version'] : '';
-$st_updated = isset( $args['updated'] ) ? $args['updated'] : '';
+$st_version        = isset( $args['version'] ) ? $args['version'] : '';
+$st_updated        = isset( $args['updated'] ) ? $args['updated'] : '';
+$st_show_effective = ! isset( $args['show_effective'] ) || $args['show_effective'];
+$st_format_date    = ! isset( $args['format_date'] ) || $args['format_date'];
 ?>
 <div class="legal-meta-bar">
+	<?php if ( $st_show_effective ) : ?>
 	<span class="legal-chip">
 		<?php safetunnels_icon( 'ti-calendar-event' ); ?>
 		<?php
@@ -21,6 +24,7 @@ $st_updated = isset( $args['updated'] ) ? $args['updated'] : '';
 		);
 		?>
 	</span>
+	<?php endif; ?>
 
 	<?php if ( $st_updated ) : ?>
 		<span class="legal-chip">
@@ -29,7 +33,7 @@ $st_updated = isset( $args['updated'] ) ? $args['updated'] : '';
 			printf(
 				/* translators: %s: date. */
 				esc_html__( 'Last updated %s', 'safetunnels' ),
-				esc_html( safetunnels_format_date( $st_updated ) )
+				esc_html( $st_format_date ? safetunnels_format_date( $st_updated ) : $st_updated )
 			);
 			?>
 		</span>
