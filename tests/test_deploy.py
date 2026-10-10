@@ -47,95 +47,148 @@ class PackageTests(unittest.TestCase):
 
 class ConfigurationTests(unittest.TestCase):
     def test_valid_config_and_rejects_unverified_host(self):
-        env = dict(APP_URL='https://example.org', SERVER_HOST='server.example.org', SERVER_USER='deploy', SERVER_SSH_KEY='private', SERVER_KNOWN_HOSTS='verified', WP_ROOT='/srv/wordpress', RELEASE_SHA=SHA, ARTIFACT='artifact.tar.gz')
+        env = dict(APP_URL='https://example.org', SERVER_HOST='server.example.org', SERVER_USER='deploy', SERVER_SSH_KEY='private', SERVER_KNOWN_HOSTS='verified', RELEASE_SHA=SHA, ARTIFACT='artifact.tar.gz')
         with patch.dict(os.environ, env, clear=True):
             self.assertEqual(deploy.config()['SERVER_PORT'], '22')
             del os.environ['SERVER_KNOWN_HOSTS']
             with self.assertRaises(ValueError):
                 deploy.config()
 
-    def test_cloudflare_requires_exact_zone_and_https_required(self):
-        env = dict(APP_URL='https://example.org', SERVER_HOST='server.example.org', SERVER_USER='deploy', SERVER_SSH_KEY='private', SERVER_KNOWN_HOSTS='verified', WP_ROOT='/srv/wordpress', RELEASE_SHA=SHA, ARTIFACT='artifact.tar.gz', CLOUDFLARE_API_TOKEN='token')
+    def test_cloudflare_zone_optional_but_must_be_valid_and_https_required(self):
+        env = dict(APP_URL='https://example.org', SERVER_HOST='server.example.org', SERVER_USER='deploy', SERVER_SSH_KEY='private', SERVER_KNOWN_HOSTS='verified', RELEASE_SHA=SHA, ARTIFACT='artifact.tar.gz', CLOUDFLARE_API_TOKEN='token')
         with patch.dict(os.environ, env, clear=True):
+            deploy.config()
+            os.environ['CLOUDFLARE_ZONE_ID'] = 'invalid'
             with self.assertRaises(ValueError): deploy.config()
             os.environ['CLOUDFLARE_ZONE_ID'] = 'b' * 32
             deploy.config()
             os.environ['APP_URL'] = 'http://example.org'
             with self.assertRaises(ValueError): deploy.config()
 
-# Exercise actual remote.sh filesystem transitions with fake external services.
-FAKE = '''#!/usr/bin/env python3
+nginx = module('nginx')
+
+class NginxTests(unittest.TestCase):
+    def test_tls_and_acme_proxy_are_limited_to_own_domain(self):
+        content = nginx.render('site.example.org', 18080, True)
+        self.assertIn('server_name site.example.org;', content)
+        self.assertIn('127.0.0.1:18080', content)
+        self.assertIn('location ^~ /.well-known/acme-challenge/', content)
+        self.assertIn('/etc/letsencrypt/live/safetunnels-site.example.org/', content)
+        self.assertNotIn('default_server', content)
+        with self.assertRaises(ValueError): nginx.render('example.org;evil', 80, True)
+
+    def test_unmanaged_or_conflicting_site_never_overwritten(self):
+        with tempfile.TemporaryDirectory() as d:
+            target = pathlib.Path(d) / 'safetunnels-example.org.conf'
+            target.write_text('existing site')
+            dump = '# configuration file /etc/nginx/nginx.conf:\ninclude /etc/nginx/conf.d/*.conf;\n'
+            with patch.object(nginx.subprocess, 'check_output', return_value=dump):
+                with self.assertRaises(ValueError): nginx.install('example.org', 18080, False, d)
+            self.assertEqual(target.read_text(), 'existing site')
+            target.unlink()
+            dump += '# configuration file /etc/nginx/conf.d/other.conf:\nserver { server_name example.org; }\n'
+            with patch.object(nginx.subprocess, 'check_output', return_value=dump):
+                with self.assertRaises(ValueError): nginx.install('example.org', 18080, False, d)
+            self.assertFalse(target.exists())
+
+    def test_failed_reload_restores_existing_managed_config(self):
+        with tempfile.TemporaryDirectory() as d:
+            target = pathlib.Path(d) / 'safetunnels-example.org.conf'
+            original = nginx.MARKER + '\nold configuration'
+            target.write_text(original)
+            dump = '# configuration file /etc/nginx/nginx.conf:\ninclude /etc/nginx/conf.d/*.conf;\n'
+            with patch.object(nginx.subprocess, 'check_output', return_value=dump), patch.object(nginx.subprocess, 'run', side_effect=[subprocess.CalledProcessError(1, 'nginx'), None, None]):
+                with self.assertRaises(subprocess.CalledProcessError): nginx.install('example.org', 18080, True, d)
+            self.assertEqual(target.read_text(), original)
+
+class DnsTests(unittest.TestCase):
+    def test_conflicting_dns_never_replaced(self):
+        cfg = {'DOMAIN': 'app.example.org', 'SERVER_HOST': '1.1.1.1'}
+        with patch.dict(os.environ, {'CLOUDFLARE_API_TOKEN': 'token', 'CLOUDFLARE_ZONE_ID': 'b' * 32}, clear=True), patch.object(deploy, 'cloudflare', side_effect=[{'name': 'example.org'}, [{'type': 'A', 'content': '8.8.8.8'}]]) as api:
+            with self.assertRaises(ValueError): deploy.prepare_dns(cfg)
+            self.assertTrue(all(call.args[0] == 'GET' for call in api.call_args_list))
+
+    def test_missing_dns_created_without_modifying_zone_ssl(self):
+        cfg = {'DOMAIN': 'app.example.org', 'SERVER_HOST': '1.1.1.1'}
+        with patch.dict(os.environ, {'CLOUDFLARE_API_TOKEN': 'token', 'CLOUDFLARE_ZONE_ID': 'b' * 32}, clear=True), patch.object(deploy, 'cloudflare', side_effect=[{'name': 'example.org'}, [], {}]) as api:
+            deploy.prepare_dns(cfg)
+            self.assertEqual(api.call_args.args[0], 'POST')
+            self.assertEqual(api.call_args.args[2]['proxied'], False)
+            self.assertTrue(all('/settings/' not in call.args[1] for call in api.call_args_list))
+
+DOCKER_FAKE = '''#!/usr/bin/env python3
 import json, os, pathlib, sys
-name = pathlib.Path(sys.argv[0]).name
-args = sys.argv[1:]
-base = pathlib.Path(os.environ['TEST_BASE'])
-with (base / 'calls').open('a') as f: f.write(name + ' ' + ' '.join(args) + '\\n')
-if name == 'wp':
-    if 'eval' in args and 'echo get_theme_root();' in args: print(base / 'wordpress/wp-content/themes')
-    elif 'option' in args and 'stylesheet' in args: print('safetunnels')
-    elif 'export' in args:
-        if os.environ.get('FAIL_BACKUP'): sys.exit(1)
-        pathlib.Path(args[args.index('export') + 1]).write_text('database backup')
-elif name == 'curl':
-    out = pathlib.Path(args[args.index('-o') + 1])
-    if 'rest_route=' in args[-1]: out.write_text(json.dumps({'revision': os.environ['TEST_SHA'], 'theme': 'safetunnels'}))
-    else: out.write_text('<link id="safetunnels-landing-css">')
-elif name == 'php' and args[0] == '-r' and 'json_decode' in args[1]:
-    sys.exit(1 if os.environ.get('FAIL_HEALTH') else 0)
+name=pathlib.Path(sys.argv[0]).name
+args=sys.argv[1:]
+base=pathlib.Path(os.environ['TEST_BASE'])
+with (base/'calls').open('a') as f:f.write(name+' '+' '.join(args)+'\\n')
+if name=='docker':
+ if 'exec' in args and 'db' in args:
+  if os.environ.get('FAIL_BACKUP'):sys.exit(1)
+  print('database snapshot')
+ elif 'up' in args and 'wordpress' in args and os.environ.get('FAIL_START'):
+  env=(base/'state/.env').read_text()
+  sys.exit(0 if 'THEME_RELEASE='+str(base/'state/releases/old')+'\\n' in env else 1)
+elif name=='curl':
+ out=pathlib.Path(args[args.index('-o')+1])
+ if any('rest_route=' in arg for arg in args):out.write_text(json.dumps({'revision':'wrong' if os.environ.get('FAIL_HEALTH') else os.environ['TEST_SHA'],'theme':'safetunnels'}))
+ else:out.write_text('<link id="safetunnels-landing-css">')
 '''
 
-class RemoteTests(unittest.TestCase):
-    def run_remote(self, fail_health=False, fail_backup=False, initial=False, bad_digest=False):
-        with tempfile.TemporaryDirectory() as temporary:
-            base = pathlib.Path(temporary)
-            wp = base / 'wordpress'
-            themes = wp / 'wp-content/themes'
-            themes.mkdir(parents=True)
-            (wp / 'wp-config.php').write_text('config')
-            state = base / 'deploy'
-            old = state / 'releases/old'
+class DockerRemoteTests(unittest.TestCase):
+    def run_deploy(self, failure=None, initial=False):
+        with tempfile.TemporaryDirectory() as d:
+            base=pathlib.Path(d)
+            state=base/'state'
+            old=state/'releases/old'
             old.mkdir(parents=True)
-            (old / 'style.css').write_text('old code')
-            target = themes / 'safetunnels'
-            if initial:
-                target.mkdir()
-                (target / 'style.css').write_text('old code')
-            else:
-                target.symlink_to(old)
-            theme = base / 'theme'
+            (state/'.safetunnels-managed').touch()
+            (state/'settings').write_text('example.org:18080\n')
+            (state/'images.env').write_text('WORDPRESS_IMAGE=wordpress@sha256:abc\nDATABASE_IMAGE=mariadb@sha256:def\nCLI_IMAGE=wordpress@sha256:ghi\n')
+            if not initial:
+                (state/'compose.yml').write_text('previous compose configuration')
+                (state/'.env').write_text('THEME_RELEASE='+str(old)+'\n')
+            theme=base/'theme'
             theme.mkdir()
-            (theme / 'functions.php').write_text('<?php')
-            (theme / 'style.css').write_text('theme')
-            artifact = base / 'theme.tar.gz'
-            digest = package.package(theme, artifact, SHA)
-            binaries = base / 'bin'
+            (theme/'functions.php').write_text('<?php')
+            (theme/'style.css').write_text('test')
+            archive=base/'theme.tar.gz'
+            digest=package.package(theme,archive,SHA)
+            payload=base/'payload'
+            payload.mkdir()
+            # Isolate privileged OS boundaries; execute the release state machine unchanged.
+            script=(ROOT/'scripts/deploy/docker-remote.sh').read_text()
+            script='\n'.join(line for line in script.splitlines() if not line.startswith('[[ $EUID == 0 ]]'))+'\n'
+            script=script.replace('/var/lib/safetunnels-acme',str(base/'acme')).replace('/etc/letsencrypt',str(base/'letsencrypt'))
+            (payload/'docker-remote.sh').write_text(script)
+            (payload/'provision.sh').write_text('#!/bin/bash\nexit 0\n')
+            (payload/'nginx.py').write_text('pass\n')
+            (payload/'compose.yml').write_text('test compose')
+            binaries=base/'bin'
             binaries.mkdir()
-            for name in ['wp', 'curl', 'php', 'sleep']:
-                path = binaries / name
-                path.write_text(FAKE)
-                path.chmod(0o755)
-            env = dict(os.environ, PATH=str(binaries) + ':' + os.environ['PATH'], TEST_BASE=str(base), TEST_SHA=SHA)
-            if fail_health: env['FAIL_HEALTH'] = '1'
-            if fail_backup: env['FAIL_BACKUP'] = '1'
-            result = subprocess.run(['bash', str(ROOT / 'scripts/deploy/remote.sh'), str(artifact), '0' * 64 if bad_digest else digest, SHA, str(wp), 'https://example.org', str(state)], env=env, text=True, capture_output=True)
-            if fail_health or fail_backup or bad_digest:
-                self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
-                self.assertEqual((target / 'style.css').read_text(), 'old code')
+            for name in ['docker','curl','certbot','sleep']:
+                path=binaries/name;path.write_text(DOCKER_FAKE);path.chmod(0o755)
+            env=dict(os.environ,PATH=str(binaries)+':'+os.environ['PATH'],TEST_BASE=str(base),TEST_SHA=SHA)
+            if failure:env[failure]='1'
+            result=subprocess.run(['bash',str(payload/'docker-remote.sh'),str(archive),digest,SHA,'https://example.org','example.org',str(state),'18080','admin@example.org','admin'],env=env,text=True,capture_output=True)
+            current=(state/'.env').read_text()
+            calls=(base/'calls').read_text()
+            if failure:
+                self.assertNotEqual(result.returncode,0,result.stdout+result.stderr)
+                if not initial:
+                    self.assertIn('THEME_RELEASE='+str(old)+'\n',current)
+                    self.assertEqual((state/'compose.yml').read_text(),'previous compose configuration')
             else:
-                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-                self.assertTrue(target.is_symlink())
-                self.assertEqual(json.loads((target / 'release.json').read_text())['revision'], SHA)
-            calls = (base / 'calls').read_text() if (base / 'calls').exists() else ''
-            self.assertNotIn('db import', calls)
-            if initial and fail_health:
-                self.assertIn('maintenance-mode deactivate', calls)
-            if not bad_digest and not fail_backup:
-                self.assertEqual(len(list((state / 'backups').glob('*.sql'))), 1)
+                self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+                self.assertIn(SHA,current)
+                self.assertEqual((state/'current-revision').read_text().strip(),SHA)
+            self.assertNotIn('down --volumes',calls)
+            self.assertNotIn('db import',calls)
+            if not initial and failure!='FAIL_BACKUP':
+                self.assertTrue(list((state/'backups').glob('*.sql')))
 
-    def test_successful_atomic_switch(self): self.run_remote()
-    def test_failed_probe_restores_previous_release(self): self.run_remote(fail_health=True)
-    def test_first_deployment_failure_restores_original_directory(self): self.run_remote(fail_health=True, initial=True)
-    def test_backup_failure_never_switches_files(self): self.run_remote(fail_backup=True)
-    def test_checksum_failure_never_switches_files(self): self.run_remote(bad_digest=True)
-
-if __name__ == '__main__': unittest.main()
+    def test_existing_site_success(self):self.run_deploy()
+    def test_initial_install_success(self):self.run_deploy(initial=True)
+    def test_bad_health_restores_old_theme_mount(self):self.run_deploy('FAIL_HEALTH')
+    def test_container_start_failure_restores_old_theme_mount(self):self.run_deploy('FAIL_START')
+    def test_backup_failure_does_not_switch_mount(self):self.run_deploy('FAIL_BACKUP')

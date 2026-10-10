@@ -24,11 +24,17 @@ database and administrator login are excluded from Git.
 
 ## CI/CD
 
-GitHub Actions validates pull requests and deploys pushes to `main` to an existing
-WordPress server. Deployments use a checksummed theme artifact, verified SSH host
-keys, database backups, atomic release switches, public health checks and automatic
-file rollback. Cloudflare cache purge is optional.
+Pushes to `main` provision Ubuntu/Debian servers and deploy WordPress with Docker,
+MariaDB, an isolated localhost port, the existing host Nginx, and automatically
+issued/renewed Let's Encrypt TLS. Pull requests validate the theme and test a
+fresh Docker WordPress installation without accessing production.
 
-Configure the `production` environment, `WP_ROOT`, and verified host keys before
-running production deployment. See [the complete deployment guide](docs/DEPLOYMENT.md)
-for required Secrets/Variables, server prerequisites, recovery and limitations.
+Deployments preserve persistent volumes, back up SQL, verify the active commit,
+and restore the previous app release on origin health failure. Cloudflare DNS
+creation and cache purge use the configured token. Existing vhosts and conflicting
+DNS records are preserved.
+
+Configure the `production` environment and verified SSH host keys. `WP_ROOT` is
+not required; database/admin passwords are generated on the server. See [the
+complete deployment guide](docs/DEPLOYMENT.md) for required permissions, SSL,
+credentials, recovery and limitations.
