@@ -148,6 +148,10 @@ def main():
                   '-o', f'UserKnownHostsFile={hosts}', '-o', 'ConnectTimeout=15', '-o', 'ServerAliveInterval=15', '-o', 'ServerAliveCountMax=4']
         subprocess.run(['ssh-keygen', '-y', '-P', '', '-f', str(key)], check=True, stdout=subprocess.DEVNULL)
         host = cfg['SERVER_HOST']
+        lookup = host if int(cfg['SERVER_PORT']) == 22 else '[' + host + ']:' + cfg['SERVER_PORT']
+        found = subprocess.run(['ssh-keygen', '-F', lookup, '-f', str(hosts)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if found.returncode != 0:
+            raise ValueError('SERVER_KNOWN_HOSTS has no entry matching SERVER_HOST and SERVER_PORT. APP_URL is independent of the SSH host.')
         target = cfg['SERVER_USER'] + '@' + host
         ssh = ['ssh', *common, '-p', cfg['SERVER_PORT'], target]
         remote_dir = subprocess.check_output([*ssh, 'mktemp -d /tmp/safetunnels-deploy.XXXXXXXX'], text=True).strip()

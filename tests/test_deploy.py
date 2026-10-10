@@ -136,7 +136,7 @@ elif name=='curl':
 '''
 
 class DockerRemoteTests(unittest.TestCase):
-    def run_deploy(self, failure=None, initial=False):
+    def run_deploy(self, failure=None, initial=False, migrate=False):
         with tempfile.TemporaryDirectory() as d:
             base=pathlib.Path(d)
             state=base/'state'
@@ -148,6 +148,9 @@ class DockerRemoteTests(unittest.TestCase):
             if not initial:
                 (state/'compose.yml').write_text('previous compose configuration')
                 (state/'.env').write_text('THEME_RELEASE='+str(old)+'\n')
+            if migrate:
+                (state/'.env').write_text('APP_URL=https://old.example.org\nHTTP_PORT=18080\nTHEME_RELEASE='+str(old)+'\n')
+                (state/'settings').unlink()
             theme=base/'theme'
             theme.mkdir()
             (theme/'functions.php').write_text('<?php')
@@ -159,6 +162,7 @@ class DockerRemoteTests(unittest.TestCase):
             # Isolate privileged OS boundaries; execute the release state machine unchanged.
             script=(ROOT/'scripts/deploy/docker-remote.sh').read_text()
             script='\n'.join(line for line in script.splitlines() if not line.startswith('[[ $EUID == 0 ]]'))+'\n'
+            script=script.replace("with socket.socket() as s: s.bind(('127.0.0.1',int(sys.argv[1])))", 'pass # Socket boundary simulated in unit tests')
             script=script.replace('/var/lib/safetunnels-acme',str(base/'acme')).replace('/etc/letsencrypt',str(base/'letsencrypt'))
             (payload/'docker-remote.sh').write_text(script)
             (payload/'provision.sh').write_text('#!/bin/bash\nexit 0\n')
@@ -178,6 +182,7 @@ class DockerRemoteTests(unittest.TestCase):
                 if not initial:
                     self.assertIn('THEME_RELEASE='+str(old)+'\n',current)
                     self.assertEqual((state/'compose.yml').read_text(),'previous compose configuration')
+                    if migrate:self.assertIn('APP_URL=https://old.example.org',current)
             else:
                 self.assertEqual(result.returncode,0,result.stdout+result.stderr)
                 self.assertIn(SHA,current)
@@ -192,3 +197,6 @@ class DockerRemoteTests(unittest.TestCase):
     def test_bad_health_restores_old_theme_mount(self):self.run_deploy('FAIL_HEALTH')
     def test_container_start_failure_restores_old_theme_mount(self):self.run_deploy('FAIL_START')
     def test_backup_failure_does_not_switch_mount(self):self.run_deploy('FAIL_BACKUP')
+
+    def test_domain_move_with_missing_settings_reuses_installation(self):self.run_deploy(migrate=True)
+    def test_failed_domain_move_restores_previous_url(self):self.run_deploy('FAIL_HEALTH',migrate=True)

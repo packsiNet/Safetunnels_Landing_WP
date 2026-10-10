@@ -20,15 +20,16 @@ install -d -m 700 "$root/secrets" "$root/backups"
 project="safetunnels-$(printf '%s' "$root" | sha256sum | cut -c1-12)"
 previous=''
 [[ ! -f $root/.env ]] || previous=$(sed -n 's/^THEME_RELEASE=//p' "$root/.env")
-if [[ -f $root/settings ]]; then
-  [[ $(cat "$root/settings") == "$domain:$port" ]] || { echo 'Domain/port changed; migrate explicitly rather than overwrite an existing deployment.' >&2; exit 2; }
+if [[ -n $previous ]]; then
+  previous_port=$(sed -n 's/^HTTP_PORT=//p' "$root/.env")
+  [[ ${previous_port:-$port} == "$port" ]] || { echo 'HTTP_PORT changed; explicit port migration is required.' >&2; exit 2; }
+  # APP_URL authorizes moving this managed installation to another domain.
+  # Existing containers own the unchanged port, even if settings was removed.
 else
-  # Only localhost is bound. Refuse occupied ports before launching any container.
-  python3 - "$port" <<'PY'
+  python3 - "$port" <<'PYTHON'
 import socket,sys
 with socket.socket() as s: s.bind(('127.0.0.1',int(sys.argv[1])))
-PY
-  printf '%s\n' "$domain:$port" > "$root/settings"
+PYTHON
 fi
 for secret in db_password db_root_password admin_password; do
   if [[ ! -s "$root/secrets/$secret" ]]; then openssl rand -hex 32 > "$root/secrets/$secret"; fi
@@ -62,6 +63,11 @@ with tarfile.open(sys.argv[1]) as archive:
 PY
 find "$release" -type d -exec chmod 755 {} +
 find "$release" -type f -exec chmod 644 {} +
+previous_env=""
+if [[ -f $root/.env ]]; then
+  previous_env="$root/backups/env-$stamp"
+  cp -p "$root/.env" "$previous_env"
+fi
 previous_compose=""
 if [[ -f $root/compose.yml ]]; then
   previous_compose="$root/backups/compose-$stamp.yml"
@@ -98,7 +104,7 @@ rollback() {
     if [[ -n $previous ]]; then
       echo 'Restoring previous Docker theme release.' >&2
       [[ -z $previous_compose ]] || cp "$previous_compose" "$root/compose.yml"
-      write_env "$previous"
+      if [[ -n $previous_env ]]; then cp -p "$previous_env" "$root/.env"; else write_env "$previous"; fi
       "${compose[@]}" up -d --wait --wait-timeout 180 wordpress || true
       "${compose[@]}" run --rm -T cli --skip-themes maintenance-mode deactivate || true
       "${compose[@]}" run --rm -T cli cache flush || true
