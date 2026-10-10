@@ -69,15 +69,6 @@ function safetunnels_document_title_parts( $parts ) {
 		$parts['tagline'] = '';
 		unset( $parts['site'] );
 	}
-	if ( 'hub' === safetunnels_current_page_key() ) {
-		$parts['title'] = __( 'Studio Hub — Choose Your Destination', 'safetunnels' );
-		$parts['tagline'] = '';
-		unset( $parts['site'] );
-	}
-	if ( 'peeko_privacy' === safetunnels_current_page_key() ) {
-		$parts['title'] = __( 'Privacy Policy for Peeko', 'safetunnels' );
-		unset( $parts['site'] );
-	}
 
 	return $parts;
 }

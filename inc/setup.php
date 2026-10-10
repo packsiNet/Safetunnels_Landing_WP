@@ -87,21 +87,15 @@ function safetunnels_widgets_init() {
 add_action( 'widgets_init', 'safetunnels_widgets_init' );
 
 /**
- * Selects the product landing, document, studio hub or Peeko shell.
+ * Selects the SafeTunnels landing or document shell.
  * Drives both body classes and conditional asset loading.
  *
- * @return string `tn`, `lg`, `hub` or `peeko`.
+ * @return string `tn` or `lg`.
  */
 function safetunnels_shell() {
 	$landing = array( 'home', 'pricing', 'download', 'apps' );
 	$key     = safetunnels_current_page_key();
 
-	if ( 'hub' === $key ) {
-		return 'hub';
-	}
-	if ( in_array( $key, array( 'peeko', 'peeko_privacy' ), true ) ) {
-		return 'peeko';
-	}
 	$shell = in_array( $key, $landing, true ) ? 'tn' : 'lg';
 
 	/**

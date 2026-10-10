@@ -13,7 +13,7 @@
 defined( 'ABSPATH' ) || exit;
 
 const SAFETUNNELS_PAGES_OPTION = 'safetunnels_pages';
-const SAFETUNNELS_PAGES_STRUCTURE_VERSION = '3';
+const SAFETUNNELS_PAGES_STRUCTURE_VERSION = '4';
 
 /**
  * Definition of every page the theme manages.
@@ -24,36 +24,13 @@ function safetunnels_page_registry() {
 	$app = safetunnels_opt( 'app_name' );
 
 	$pages = array(
-		'hub'            => array(
-			'title'    => 'Studio Hub',
-			'slug'     => 'studio',
-			'template' => 'page-templates/template-hub.php',
-			'front'    => true,
-			'nav'      => false,
-			'desc'     => 'Two products, one universe. Explore Tunnel Network for private, encrypted connectivity, or read the privacy policy for Peeko, our number-finding game.',
-		),
 		'home'           => array(
 			'title'    => $app,
 			'slug'     => 'tunnels',
 			'template' => 'page-templates/template-home.php',
+			'front'    => true,
 			'nav'      => false,
 			'desc'     => 'Need an Iranian IP address abroad? SafeTunnels is an Iran VPN for Android that helps you access supported Iranian apps and websites from outside Iran.',
-		),
-		'peeko'          => array(
-			'title'       => 'Peeko',
-			'slug'        => 'peeko',
-			'template'    => 'page-templates/template-peeko-privacy.php',
-			'nav'         => false,
-			'noindex'     => true,
-			'redirect_to' => 'peeko_privacy',
-		),
-		'peeko_privacy'  => array(
-			'title'    => 'Privacy Policy for Peeko',
-			'slug'     => 'privacy',
-			'parent'   => 'peeko',
-			'template' => 'page-templates/template-peeko-privacy.php',
-			'nav'      => false,
-			'desc'     => 'How Peeko handles on-device game information, Google AdMob advertising, data retention, and deletion.',
 		),
 		'download'       => array(
 			'title'    => 'Download',
@@ -150,7 +127,7 @@ function safetunnels_page_registry() {
 	);
 
 	foreach ( $pages as $key => &$page ) {
-		if ( ! in_array( $key, array( 'hub', 'home', 'peeko', 'peeko_privacy' ), true ) ) {
+		if ( 'home' !== $key ) {
 			$page['parent'] = 'home';
 		}
 	}
@@ -254,7 +231,7 @@ function safetunnels_current_page_key() {
 
 /**
  * Creates any missing registry page, assigns its template, and points the
- * front page at the studio hub. Preserves existing page IDs and content.
+ * front page at the SafeTunnels landing page. Preserves existing page IDs and content.
  *
  * @return void
  */
@@ -318,6 +295,20 @@ function safetunnels_install_pages() {
 		$map[ $key ] = (int) $id;
 	}
 
+	// Retire only the former theme-managed pages, preserving them in Trash.
+	foreach ( array( 'peeko_privacy', 'peeko', 'hub' ) as $retired_key ) {
+		if ( ! empty( $map[ $retired_key ] ) ) {
+			$retired_id = (int) $map[ $retired_key ];
+			if ( 'page' === get_post_type( $retired_id ) ) {
+				foreach ( wp_get_associated_nav_menu_items( $retired_id, 'post_type' ) as $menu_item_id ) {
+					wp_delete_post( $menu_item_id, true );
+				}
+				wp_trash_post( $retired_id );
+			}
+			unset( $map[ $retired_key ] );
+		}
+	}
+
 	update_option( SAFETUNNELS_PAGES_OPTION, $map );
 
 	foreach ( $registry as $key => $page ) {
@@ -371,13 +362,17 @@ function safetunnels_redirect_product_pages() {
 		wp_safe_redirect( safetunnels_page_url( $registry[ $key ]['redirect_to'] ), 301 );
 		exit;
 	}
-	if ( ! is_404() ) {
-		return;
-	}
 	$path = trim( (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ), '/' );
 	$base = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
 	if ( $base && 0 === strpos( $path, $base . '/' ) ) {
 		$path = substr( $path, strlen( $base ) + 1 );
+	}
+	if ( 'tunnels' === $path || 'studio' === $path ) {
+		wp_safe_redirect( safetunnels_page_url( 'home' ), 301 );
+		exit;
+	}
+	if ( ! is_404() ) {
+		return;
 	}
 	$aliases = array( 'home' => 'home' );
 	foreach ( $registry as $page_key => $page ) {

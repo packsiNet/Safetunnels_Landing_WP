@@ -9,7 +9,7 @@ import argparse
 import io
 
 DIRECTORIES = ('assets', 'inc', 'languages', 'page-templates', 'template-parts')
-ROOT_FILES = ('style.css', 'readme.txt', 'screenshot.png', '404.php', 'comments.php', 'footer.php', 'footer-studio.php', 'functions.php', 'header.php', 'header-studio.php', 'index.php', 'page.php', 'search.php', 'searchform.php', 'sidebar.php', 'single.php')
+ROOT_FILES = ('style.css', 'readme.txt', 'screenshot.png', '404.php', 'comments.php', 'footer.php', 'functions.php', 'header.php', 'index.php', 'page.php', 'search.php', 'searchform.php', 'sidebar.php', 'single.php')
 
 def package(root, output, revision):
     root, output = pathlib.Path(root), pathlib.Path(output)

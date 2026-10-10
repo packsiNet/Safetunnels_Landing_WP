@@ -60,16 +60,6 @@ function safetunnels_enqueue_assets() {
 		safetunnels_asset_version( 'style.css' )
 	);
 
-	if ( in_array( $shell, array( 'hub', 'peeko' ), true ) ) {
-		wp_enqueue_style(
-			'safetunnels-studio',
-			safetunnels_asset( 'css/studio.css' ),
-			array( 'safetunnels-base' ),
-			safetunnels_asset_version( 'assets/css/studio.css' )
-		);
-		return;
-	}
-
 	if ( 'tn' === $shell ) {
 		wp_enqueue_style(
 			'safetunnels-tunnels',

@@ -67,7 +67,6 @@ if ( $st_home ) {
 					<?php echo $st_link['current'] ? ' class="active" aria-current="page"' : ''; ?>
 				><?php echo esc_html( $st_link['label'] ); ?></a>
 			<?php endforeach; ?>
-			<a href="<?php echo esc_url( safetunnels_page_url( 'hub' ) ); ?>"><?php esc_html_e( 'Hub', 'safetunnels' ); ?> <span aria-hidden="true">↗</span></a>
 		</div>
 
 		<?php if ( ! $st_home ) : ?>
@@ -89,7 +88,6 @@ if ( $st_home ) {
 
 <div class="st-drawer" id="st-nav-drawer" hidden>
 	<div class="st-drawer-inner">
-		<a href="<?php echo esc_url( safetunnels_page_url( 'hub' ) ); ?>"><?php safetunnels_icon( 'ti-layout-grid' ); ?> <?php esc_html_e( 'Back to Hub', 'safetunnels' ); ?></a>
 
 		<?php foreach ( $st_links as $st_link ) : ?>
 			<a href="<?php echo esc_url( $st_link['url'] ); ?>"><?php safetunnels_icon( 'ti-chevron-right' ); ?> <?php echo esc_html( $st_link['label'] ); ?></a>

@@ -41,9 +41,9 @@ import json,sys
 with open(sys.argv[1]) as f: data=json.load(f)
 assert data=={'revision':sys.argv[2],'theme':'safetunnels'},data
 PY
-for path in / /tunnels/ /tunnels/privacy/ /peeko/privacy/; do
+for path in / /tunnels/privacy/ /tunnels/download/; do
   curl --fail --silent --show-error -H 'Host: safetunnels-ci.test' -H 'X-Forwarded-Proto: https' "http://127.0.0.1:18080$path" -o "$root/page.html"
-  grep -q 'safetunnels-studio\|safetunnels-landing' "$root/page.html"
+  grep -q 'safetunnels-tunnels\|safetunnels-legal' "$root/page.html"
 done
 # Re-running activation/migration must preserve page IDs, not duplicate pages.
 before=$("${cli[@]}" post list --post_type=page --format=ids)

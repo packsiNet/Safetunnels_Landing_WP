@@ -89,7 +89,6 @@ $st_columns = array(
 
 	<div class="footer-row">
 		<div class="footer-links">
-			<a href="<?php echo esc_url( safetunnels_page_url( 'hub' ) ); ?>"><?php esc_html_e( '← Back to Hub', 'safetunnels' ); ?></a>
 			<?php
 			// The footer link row is a flex row of bare anchors, so the menu is
 			// rendered by hand rather than through the list-based default walker.

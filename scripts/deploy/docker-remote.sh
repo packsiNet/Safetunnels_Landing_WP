@@ -157,9 +157,9 @@ PY
   sleep 3
 done
 (( healthy )) || { echo 'Origin release verification failed.' >&2; exit 1; }
-for path in / /tunnels/ /tunnels/privacy/ /peeko/privacy/; do
+for path in / /tunnels/privacy/ /tunnels/download/; do
   curl --fail --silent --show-error --max-time 20 --resolve "$domain:443:127.0.0.1" "$app_url$path?deploy_check=$revision" -o "$root/page.html"
-  grep -q 'safetunnels-studio\|safetunnels-landing' "$root/page.html"
+  grep -q 'safetunnels-tunnels\|safetunnels-legal' "$root/page.html"
   if grep -q 'Fatal error\|There has been a critical error' "$root/page.html"; then exit 1; fi
 done
 rm -f "$root/page.html" "$root/probe.json"

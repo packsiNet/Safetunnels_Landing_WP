@@ -428,8 +428,6 @@ function safetunnels_schema_webpage() {
 		$type = 'ContactPage';
 	} elseif ( 'apps' === $key ) {
 		$type = 'CollectionPage';
-	} elseif ( 'hub' === $key ) {
-		$type = 'CollectionPage';
 	} elseif ( is_home() || is_archive() ) {
 		$type = 'CollectionPage';
 	} elseif ( is_search() ) {

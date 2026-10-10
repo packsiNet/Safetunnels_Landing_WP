@@ -119,7 +119,7 @@ def purge_cache(app_url):
         return
     zone = required('CLOUDFLARE_ZONE_ID')
     # Purge only URLs belonging to this app, preserving other sites in the zone.
-    paths = ['', '/tunnels/', '/tunnels/privacy/', '/tunnels/terms/', '/tunnels/support/', '/tunnels/contact/', '/tunnels/faq/', '/tunnels/pricing/', '/tunnels/download/', '/tunnels/iranian-apps/', '/tunnels/refund-policy/', '/tunnels/cookie-policy/', '/peeko/privacy/', '/blog/']
+    paths = ['', '/tunnels/', '/tunnels/privacy/', '/tunnels/terms/', '/tunnels/support/', '/tunnels/contact/', '/tunnels/faq/', '/tunnels/pricing/', '/tunnels/download/', '/tunnels/iranian-apps/', '/tunnels/refund-policy/', '/tunnels/cookie-policy/', '/studio/', '/peeko/', '/peeko/privacy/', '/blog/']
     for attempt in range(3):
         try:
             cloudflare('POST', f'zones/{zone}/purge_cache', {'files': [app_url.rstrip('/') + path if path else app_url.rstrip('/') + '/' for path in paths]})

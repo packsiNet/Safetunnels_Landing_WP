@@ -1,21 +1,21 @@
 # Safetunnels_Landing_WP
 
-WordPress theme with a two-product studio hub and the SafeTunnels landing site.
+WordPress theme dedicated to SafeTunnels.
 
 | URL | Page |
 | --- | --- |
-| `/` | Studio Hub: Tunnel Network and Peeko cards |
-| `/tunnels/` | SafeTunnels landing page |
+| `/` | SafeTunnels landing page |
+| `/tunnels/` | Permanent redirect to `/` |
 | `/tunnels/privacy/` | SafeTunnels Privacy Policy |
 | `/tunnels/terms/` | Terms of Service |
 | `/tunnels/support/` | Support |
 | `/tunnels/contact/` | Contact |
 | `/tunnels/faq/` | FAQ |
-| `/peeko/privacy/` | Peeko Privacy Policy |
 
 The theme creates its pages on activation and migrates an existing installation
 once when the page structure changes. Existing page IDs and editor content are
-preserved. Former flat URLs, such as `/privacy/`, redirect to the nested paths.
+preserved. The former hub and Peeko pages are moved to Trash during migration.
+Former flat URLs, such as `/privacy/`, redirect to the nested paths.
 Appearance → SafeTunnels Pages can regenerate missing pages.
 
 ## Direct APK download
