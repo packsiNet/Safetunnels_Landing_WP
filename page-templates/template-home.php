@@ -40,6 +40,16 @@ get_header();
 		<?php
 	endif;
 
+	?>
+	<section class="st-fa-guide-links inner" dir="rtl" lang="fa" aria-label="راهنماهای فارسی">
+		<h2>راهنمای اتصال به سرویس‌های ایرانی</h2>
+		<p>اگر خارج از ایران هستید، با روش اتصال، کاربردها و محدودیت‌های تانل ایران آشنا شوید.</p>
+		<div class="st-fa-guide-grid">
+			<a href="<?php echo esc_url( safetunnels_page_url( 'iranian_access' ) ); ?>">دسترسی به اپ‌ها و سایت‌های ایرانی از خارج کشور ←</a>
+			<a href="<?php echo esc_url( safetunnels_page_url( 'iran_tunnel' ) ); ?>">تانل ایران چیست و چگونه کار می‌کند؟ ←</a>
+		</div>
+	</section>
+	<?php
 	get_template_part( 'template-parts/tunnels/latest-posts' );
 	get_template_part( 'template-parts/tunnels/cta' );
 	?>

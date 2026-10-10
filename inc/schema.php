@@ -444,7 +444,7 @@ function safetunnels_schema_webpage() {
 		'description' => safetunnels_meta_description(),
 		'isPartOf'   => array( '@id' => safetunnels_schema_id( 'website' ) ),
 		'breadcrumb' => array( '@id' => $canonical . '#breadcrumb' ),
-		'inLanguage' => get_bloginfo( 'language' ),
+		'inLanguage' => safetunnels_content_language(),
 	);
 
 	$image = safetunnels_share_image();

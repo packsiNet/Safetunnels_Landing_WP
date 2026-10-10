@@ -53,3 +53,18 @@ body.st-product :is(.tn-page, .lg-page) .st-prose :is(h1, h2, h3, strong) { colo
 
 body.st-product :is(.tn-page, .lg-page) :is(.footer-copy, .footer-links) { color: #a9bca1; }
 body.st-product .lg-page .flogo-name { color: #eff6e7; }
+
+/* Persian search guides */
+.st-fa-guide, .st-fa-guide-links { text-align: right; }
+.st-fa-guide-body { max-width: 860px; padding-top: 4rem; padding-bottom: 5rem; line-height: 2; }
+.st-fa-guide-body h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.35; margin: 1rem 0 1.5rem; }
+.st-fa-guide-body h2 { font-size: clamp(1.35rem, 3vw, 1.8rem); margin: 2.5rem 0 .75rem; }
+.st-fa-guide-body p, .st-fa-guide-body li { max-width: 75ch; }
+.st-fa-guide-body ol, .st-fa-guide-body ul { padding-right: 1.5rem; padding-left: 0; }
+.st-fa-lead { font-size: 1.2rem; }
+.st-fa-guide-cta { padding: 1.5rem 2rem; margin-top: 3rem; border: 1px solid rgba(255,255,255,.16); border-radius: 1rem; }
+.st-fa-guide-cta h2 { margin-top: 0; }
+.st-fa-guide-cta a, .st-fa-guide-grid a { display: inline-block; padding: .8rem 1rem; border: 1px solid currentColor; border-radius: .6rem; }
+.st-fa-guide-related { margin-top: 2rem; }
+.st-fa-guide-links { padding-top: 3rem; padding-bottom: 3rem; }
+.st-fa-guide-grid { display: flex; flex-wrap: wrap; gap: 1rem; }
