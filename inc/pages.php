@@ -371,6 +371,16 @@ function safetunnels_redirect_product_pages() {
 		wp_safe_redirect( safetunnels_page_url( 'home' ), 301 );
 		exit;
 	}
+	// Do not let WordPress guess a redirect from Peeko's retired privacy URL
+	// to SafeTunnels' unrelated privacy policy.
+	if ( 'peeko' === $path || 0 === strpos( $path, 'peeko/' ) ) {
+		global $wp_query;
+		$wp_query->set_404();
+		status_header( 404 );
+		nocache_headers();
+		include get_404_template();
+		exit;
+	}
 	if ( ! is_404() ) {
 		return;
 	}

@@ -132,7 +132,9 @@ if name=='docker':
 elif name=='curl':
  out=pathlib.Path(args[args.index('-o')+1])
  if any('rest_route=' in arg for arg in args):out.write_text(json.dumps({'revision':'wrong' if os.environ.get('FAIL_HEALTH') else os.environ['TEST_SHA'],'theme':'safetunnels'}))
- else:out.write_text('<link id="safetunnels-landing-css">')
+ else:
+  style='safetunnels-legal-css' if any('/tunnels/privacy/' in arg for arg in args) else 'safetunnels-tunnels-css'
+  out.write_text('<link id="'+style+'">')
 '''
 
 class DockerRemoteTests(unittest.TestCase):

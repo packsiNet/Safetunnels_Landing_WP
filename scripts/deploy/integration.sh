@@ -45,6 +45,17 @@ for path in / /tunnels/privacy/ /tunnels/download/; do
   curl --fail --silent --show-error -H 'Host: safetunnels-ci.test' -H 'X-Forwarded-Proto: https' "http://127.0.0.1:18080$path" -o "$root/page.html"
   grep -q 'safetunnels-tunnels\|safetunnels-legal' "$root/page.html"
 done
+# The product landing is canonical at the root; retired product pages stay gone.
+curl --fail --silent --show-error -H 'Host: safetunnels-ci.test' -H 'X-Forwarded-Proto: https' 'http://127.0.0.1:18080/' -o "$root/page.html"
+grep -q 'st-page-home' "$root/page.html"
+if grep -q 'Back to Hub\|Peeko' "$root/page.html"; then exit 1; fi
+curl --silent --show-error -D "$root/redirect.headers" -H 'Host: safetunnels-ci.test' -H 'X-Forwarded-Proto: https' 'http://127.0.0.1:18080/tunnels/' -o /dev/null
+grep -q '301' "$root/redirect.headers"
+grep -qi '^Location: https://safetunnels-ci.test/[[:space:]]*$' "$root/redirect.headers"
+for path in /peeko/ /peeko/privacy/; do
+  status=$(curl --silent --show-error -o /dev/null -w '%{http_code}' -H 'Host: safetunnels-ci.test' -H 'X-Forwarded-Proto: https' "http://127.0.0.1:18080$path")
+  [[ $status == 404 ]]
+done
 # Re-running activation/migration must preserve page IDs, not duplicate pages.
 before=$("${cli[@]}" post list --post_type=page --format=ids)
 "${cli[@]}" eval 'safetunnels_after_switch_theme();'
