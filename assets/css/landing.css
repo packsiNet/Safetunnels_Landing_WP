@@ -221,6 +221,10 @@ body.st-product :is(.tn-page, .lg-page) .dstep-t p { color: #7b8b77; font-size: 
 body.st-product :is(.tn-page, .lg-page) .dbtns { margin-top: 29px; gap: 10px; }
 body.st-product :is(.tn-page, .lg-page) .dbtn { font-size: 11px; padding: 13px 17px; }
 body.st-product :is(.tn-page, .lg-page) .dbtn.out { font-size: 11px; padding: 12px 16px; }
+body.st-product :is(.tn-page, .lg-page) :is(.btn-play, .dbtn-play) { display: inline-flex; align-items: center; gap: 11px; padding: 15px 22px; font-size: 13px; font-weight: 800; box-shadow: 0 9px 24px rgb(14 116 73 / 24%); }
+body.st-product :is(.tn-page, .lg-page) :is(.btn-play, .dbtn-play):hover { box-shadow: 0 12px 28px rgb(14 116 73 / 32%); transform: translateY(-2px); }
+body.st-product :is(.tn-page, .lg-page) :is(.btn-play, .dbtn-play) img { display: block; width: 24px; height: 24px; flex: none; }
+body.st-product :is(.tn-page, .lg-page) .dbtn-apk { align-self: center; }
 
 /* App catalogue */
 body.st-product :is(.tn-page, .lg-page) #iranian-apps { background: #fbfcf9; }

@@ -28,8 +28,9 @@ $st_actions  = isset( $args['actions'] ) ? $args['actions'] : array();
 				<?php foreach ( $st_actions as $st_action ) : ?>
 					<a class="<?php echo esc_attr( $st_action['class'] ); ?>" href="<?php echo esc_url( $st_action['url'] ); ?>"
 						<?php echo ! empty( $st_action['download'] ) ? ' download' : ''; ?>
+						<?php echo ! empty( $st_action['external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>
 						<?php echo ! empty( $st_action['package'] ) ? safetunnels_track_attrs( $st_action['package'], $st_action['label'] ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-						<?php safetunnels_icon( $st_action['icon'] ); ?> <?php echo esc_html( $st_action['label'] ); ?>
+						<?php if ( ! empty( $st_action['image'] ) ) : ?><img src="<?php echo esc_url( $st_action['image'] ); ?>" width="24" height="24" alt="" /><?php else : ?><?php safetunnels_icon( $st_action['icon'] ); ?><?php endif; ?> <?php echo esc_html( $st_action['label'] ); ?>
 					</a>
 				<?php endforeach; ?>
 			</div>

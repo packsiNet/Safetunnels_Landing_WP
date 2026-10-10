@@ -42,9 +42,9 @@ $st_heading_tag = isset( $args['h1'] ) && ! $args['h1'] ? 'h2' : 'h1';
 				</p>
 
 				<div class="hero-ctas">
-					<a class="btn-main" href="<?php echo esc_url( safetunnels_apk_url() ); ?>" download
-						<?php echo safetunnels_track_attrs( safetunnels_opt( 'apk_package' ), 'Tunnel Network APK' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-						<?php safetunnels_icon( 'ti-download' ); ?> <?php esc_html_e( 'Download for Android', 'safetunnels' ); ?>
+					<a class="btn-main btn-play" href="<?php echo esc_url( safetunnels_opt( 'google_play_url' ) ); ?>" target="_blank" rel="noopener"
+						<?php echo safetunnels_track_attrs( safetunnels_opt( 'apk_package' ), 'Google Play' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+						<img src="<?php echo esc_url( safetunnels_asset( 'img/google-play.svg' ) ); ?>" width="24" height="24" alt="" /> <?php esc_html_e( 'Download from Google Play', 'safetunnels' ); ?>
 					</a>
 					<a class="btn-ghost" href="#pricing">
 						<?php safetunnels_icon( 'ti-eye' ); ?> <?php esc_html_e( 'View Plans', 'safetunnels' ); ?>

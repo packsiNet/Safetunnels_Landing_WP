@@ -77,14 +77,14 @@ $st_play    = safetunnels_opt( 'google_play_url' );
 						</div>
 
 						<div class="dbtns">
-							<a class="dbtn" href="<?php echo esc_url( safetunnels_apk_url() ); ?>" download
-								<?php echo safetunnels_track_attrs( safetunnels_opt( 'apk_package' ), 'Tunnel Network APK' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-								<?php safetunnels_icon( 'ti-download' ); ?> <?php esc_html_e( 'Download APK Directly', 'safetunnels' ); ?>
-							</a>
-							<a class="dbtn out" href="<?php echo esc_url( $st_play ? $st_play : safetunnels_external_urls()['play_store'] ); ?>"
+							<a class="dbtn dbtn-play" href="<?php echo esc_url( $st_play ? $st_play : safetunnels_external_urls()['play_store'] ); ?>"
 								target="_blank" rel="noopener"
 								<?php echo safetunnels_track_attrs( safetunnels_opt( 'apk_package' ), 'Google Play' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-								<?php safetunnels_icon( 'ti-brand-google-play' ); ?> <?php esc_html_e( 'Google Play', 'safetunnels' ); ?>
+								<img src="<?php echo esc_url( safetunnels_asset( 'img/google-play.svg' ) ); ?>" width="24" height="24" alt="" /> <?php esc_html_e( 'Download from Google Play', 'safetunnels' ); ?>
+							</a>
+							<a class="dbtn out dbtn-apk" href="<?php echo esc_url( safetunnels_apk_url() ); ?>" download
+								<?php echo safetunnels_track_attrs( safetunnels_opt( 'apk_package' ), 'Tunnel Network APK' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+								<?php safetunnels_icon( 'ti-download' ); ?> <?php esc_html_e( 'Download APK Directly', 'safetunnels' ); ?>
 							</a>
 						</div>
 					</div>

@@ -42,7 +42,7 @@ function safetunnels_defaults() {
 		'apk_version'      => '',
 		'apk_size'         => '',
 		'min_android'      => 'Android 8.0+',
-		'google_play_url'  => '',
+		'google_play_url'  => 'https://play.google.com/store/apps/details?id=net.packsi.tunnels',
 		'app_store_url'    => '',
 
 		// ── Legal ──────────────────────────────────────────────────────

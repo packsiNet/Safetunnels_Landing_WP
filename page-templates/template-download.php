@@ -22,21 +22,23 @@ get_header();
 				__( 'Download %s for Android', 'safetunnels' ),
 				safetunnels_opt( 'app_name' )
 			),
-			'subtitle' => __( 'Install the APK directly or get it from Google Play. Free plan, unlimited bandwidth for supported apps, no account and no credit card.', 'safetunnels' ),
+			'subtitle' => __( 'Get it from Google Play, or download the APK directly. Free plan, unlimited bandwidth for supported apps, no account and no credit card.', 'safetunnels' ),
 			'actions'  => array(
 				array(
-					'class'    => 'btn-main',
-					'icon'     => 'ti-download',
-					'label'    => __( 'Download APK', 'safetunnels' ),
-					'url'      => safetunnels_apk_url(),
-					'download' => true,
+					'class'    => 'btn-main btn-play',
+					'image'    => safetunnels_asset( 'img/google-play.svg' ),
+					'label'    => __( 'Download from Google Play', 'safetunnels' ),
+					'url'      => safetunnels_opt( 'google_play_url' ),
+					'external' => true,
 					'package'  => safetunnels_opt( 'apk_package' ),
 				),
 				array(
-					'class' => 'btn-ghost',
-					'icon'  => 'ti-crown',
-					'label' => __( 'See Premium plans', 'safetunnels' ),
-					'url'   => safetunnels_page_url( 'pricing' ),
+					'class'    => 'btn-ghost',
+					'icon'     => 'ti-download',
+					'label'    => __( 'Download APK Directly', 'safetunnels' ),
+					'url'      => safetunnels_apk_url(),
+					'download' => true,
+					'package'  => safetunnels_opt( 'apk_package' ),
 				),
 			),
 		)
