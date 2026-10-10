@@ -13,6 +13,15 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Language of the Persian search guides.
+ *
+ * @return string
+ */
+function safetunnels_content_language() {
+	return in_array( safetunnels_current_page_key(), array( 'iranian_access', 'iran_tunnel' ), true ) ? 'fa-IR' : get_bloginfo( 'language' );
+}
+
+/**
  * Whether a dedicated SEO plugin is handling meta output.
  *
  * @return bool
@@ -263,7 +272,7 @@ function safetunnels_print_head_meta() {
 	$site_name   = get_bloginfo( 'name' );
 	$title       = wp_get_document_title();
 	$type        = is_singular( 'post' ) ? 'article' : 'website';
-	$locale      = get_locale();
+	$locale      = 'fa-IR' === safetunnels_content_language() ? 'fa_IR' : get_locale();
 	$twitter     = safetunnels_opt( 'twitter_handle' );
 
 	echo "\n<!-- SafeTunnels SEO -->\n";

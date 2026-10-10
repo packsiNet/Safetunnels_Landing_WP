@@ -13,7 +13,7 @@
 defined( 'ABSPATH' ) || exit;
 
 const SAFETUNNELS_PAGES_OPTION = 'safetunnels_pages';
-const SAFETUNNELS_PAGES_STRUCTURE_VERSION = '2';
+const SAFETUNNELS_PAGES_STRUCTURE_VERSION = '3';
 
 /**
  * Definition of every page the theme manages.
@@ -75,6 +75,20 @@ function safetunnels_page_registry() {
 			'template' => 'page-templates/template-apps.php',
 			'nav'      => true,
 			'desc'     => 'The full catalogue of Iranian apps SafeTunnels supports — banking, neobanks, payments, brokerages, insurance, marketplaces, operators and services — with direct download links.',
+		),
+		'iranian_access' => array(
+			'title'    => 'دسترسی به اپ‌های ایرانی از خارج کشور',
+			'slug'     => 'iranian-app-access',
+			'template' => 'page-templates/template-iranian-access.php',
+			'nav'      => false,
+			'desc'     => 'راهنمای دسترسی به اپ‌ها و سایت‌های ایرانی از خارج کشور با اتصال اندروید به مسیر ایران؛ روش راه‌اندازی، کاربردها و محدودیت‌ها.',
+		),
+		'iran_tunnel'    => array(
+			'title'    => 'تانل ایران چیست و چگونه کار می‌کند؟',
+			'slug'     => 'iran-tunnel',
+			'template' => 'page-templates/template-iran-tunnel.php',
+			'nav'      => false,
+			'desc'     => 'تانل ایران چیست؟ تفاوت اتصال با آی‌پی ایران و مسیر عادی اینترنت، نحوه کار SafeTunnels و راهنمای شروع در اندروید.',
 		),
 		'faq'            => array(
 			'title'    => 'FAQ',

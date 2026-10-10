@@ -18,6 +18,8 @@ $st_columns = array(
 			array( __( 'Download', 'safetunnels' ), safetunnels_page_url( 'download' ) ),
 			array( __( 'Pricing', 'safetunnels' ), safetunnels_page_url( 'pricing' ) ),
 			array( __( 'Iranian Apps', 'safetunnels' ), safetunnels_page_url( 'apps' ) ),
+			array( 'دسترسی به اپ‌های ایرانی', safetunnels_page_url( 'iranian_access' ) ),
+			array( 'تانل ایران چیست؟', safetunnels_page_url( 'iran_tunnel' ) ),
 			array( __( 'Features', 'safetunnels' ), safetunnels_page_url( 'home' ) . '#features' ),
 		),
 	),
