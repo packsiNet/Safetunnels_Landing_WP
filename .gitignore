@@ -1,0 +1,3 @@
+.local-wordpress/
+database.sqlite
+.htaccess
