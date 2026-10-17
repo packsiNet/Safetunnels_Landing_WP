@@ -21,6 +21,7 @@ $safetunnels_modules = array(
 
 	// Behaviour.
 	'inc/setup.php',
+	'inc/branding.php',
 	'inc/enqueue.php',
 	'inc/options.php',
 	'inc/rest.php',
