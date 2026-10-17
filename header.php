@@ -12,6 +12,15 @@ $safetunnels_shell = safetunnels_shell();
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
+	<!-- Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-HX73B6W1MK"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-HX73B6W1MK');
+	</script>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 	<link rel="profile" href="https://gmpg.org/xfn/11" />
