@@ -11,6 +11,22 @@ WordPress theme dedicated to SafeTunnels.
 | `/tunnels/support/` | Support |
 | `/tunnels/contact/` | Contact |
 | `/tunnels/faq/` | FAQ |
+| `/blog/` | Blog archive with pagination (or the existing posts page) |
+
+## Blog
+
+Publish articles from **Posts → Add New** in WordPress. Set a title, excerpt,
+featured image and category; published posts get their own detail pages.
+The home page shows the three newest public, non-password-protected posts and
+a **View all posts** link. The archive includes all posts with pagination using
+the count configured in **Settings → Reading**. With no posts, the home section
+is hidden and the archive displays an empty state.
+
+Every article automatically includes the shared download and plans section in
+`template-parts/content/post-cta.php`; no copy/paste into post content is needed.
+Navigation and the footer link to the blog. The theme provides article metadata,
+canonical URLs and BlogPosting structured data. The page migration preserves an
+existing published posts page and adds a default blog description if missing.
 
 The theme creates its pages on activation and migrates an existing installation
 once when the page structure changes. Existing page IDs and editor content are

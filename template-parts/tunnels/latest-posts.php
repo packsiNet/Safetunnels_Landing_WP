@@ -2,9 +2,8 @@
 /**
  * Latest blog posts.
  *
- * Fresh, internally-linked content on the highest-authority page of the site
- * is the cheapest ranking signal available; the section simply disappears
- * when there are no posts yet.
+ * Displays the three newest public articles and a link to the full archive.
+ * The section disappears when there are no posts yet.
  *
  * @package SafeTunnels
  */
@@ -15,6 +14,7 @@ $st_posts = get_posts(
 	array(
 		'numberposts'      => 3,
 		'post_status'      => 'publish',
+		'has_password'     => false,
 		'suppress_filters' => false,
 	)
 );
@@ -47,9 +47,17 @@ if ( ! $st_posts ) {
 						</time>
 						<h3><a href="<?php echo esc_url( get_permalink( $st_post ) ); ?>"><?php echo esc_html( get_the_title( $st_post ) ); ?></a></h3>
 						<p><?php echo esc_html( wp_trim_words( (string) $st_post->post_excerpt ? $st_post->post_excerpt : wp_strip_all_tags( $st_post->post_content ), 22 ) ); ?></p>
+						<a class="st-post-more" href="<?php echo esc_url( get_permalink( $st_post ) ); ?>">
+							<?php esc_html_e( 'Read more', 'safetunnels' ); ?> <?php safetunnels_icon( 'ti-arrow-right' ); ?>
+						</a>
 					</div>
 				</article>
 			<?php endforeach; ?>
+		</div>
+		<div class="st-blog-all">
+			<a class="st-post-more" href="<?php echo esc_url( safetunnels_blog_url() ); ?>">
+				<?php esc_html_e( 'View all posts', 'safetunnels' ); ?> <?php safetunnels_icon( 'ti-arrow-right' ); ?>
+			</a>
 		</div>
 	</div>
 </section>

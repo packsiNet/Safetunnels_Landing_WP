@@ -13,7 +13,17 @@
 defined( 'ABSPATH' ) || exit;
 
 const SAFETUNNELS_PAGES_OPTION = 'safetunnels_pages';
-const SAFETUNNELS_PAGES_STRUCTURE_VERSION = '4';
+const SAFETUNNELS_PAGES_STRUCTURE_VERSION = '5';
+
+/**
+ * Public posts archive URL, including installations with a custom posts page.
+ *
+ * @return string
+ */
+function safetunnels_blog_url() {
+	$id = (int) get_option( 'page_for_posts' );
+	return $id && 'publish' === get_post_status( $id ) ? get_permalink( $id ) : home_url( '/blog/' );
+}
 
 /**
  * Definition of every page the theme manages.
@@ -321,7 +331,11 @@ function safetunnels_install_pages() {
 
 	// A posts page keeps the blog off the landing page and gives articles a
 	// crawlable archive of their own.
-	$blog = get_page_by_path( 'blog' );
+	$posts_page_id = (int) get_option( 'page_for_posts' );
+	$blog = $posts_page_id ? get_post( $posts_page_id ) : null;
+	if ( ! $blog || 'page' !== $blog->post_type || 'publish' !== $blog->post_status ) {
+		$blog = get_page_by_path( 'blog' );
+	}
 	if ( ! $blog ) {
 		$blog_id = wp_insert_post(
 			array(
@@ -337,6 +351,9 @@ function safetunnels_install_pages() {
 
 	if ( $blog_id && ! is_wp_error( $blog_id ) ) {
 		update_option( 'page_for_posts', (int) $blog_id );
+		if ( ! get_post_meta( $blog_id, '_safetunnels_description', true ) ) {
+			update_post_meta( $blog_id, '_safetunnels_description', 'SafeTunnels guides, Android setup tips, troubleshooting and product updates for accessing supported Iranian apps from abroad.' );
+		}
 	}
 
 	if ( isset( $map['privacy'] ) ) {

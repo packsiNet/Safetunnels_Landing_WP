@@ -666,8 +666,25 @@ body {
 
 .st-post-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
 	gap: 18px;
+}
+
+.st-blog-all {
+	margin-top: 24px;
+	text-align: center;
+}
+
+.st-post-cta {
+	margin-top: 28px;
+}
+
+.st-blog-back {
+	margin-top: 20px;
+}
+
+.st-blog-back a {
+	color: var(--st-accent);
 }
 
 .st-post-card {

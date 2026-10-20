@@ -49,6 +49,20 @@ if ( $st_home ) {
 		);
 	}
 }
+
+// Include the blog in both landing navigation and existing custom menus.
+$st_blog_url = safetunnels_blog_url();
+$st_has_blog = false;
+foreach ( $st_links as &$st_link ) {
+	if ( untrailingslashit( $st_link['url'] ) === untrailingslashit( $st_blog_url ) ) {
+		$st_has_blog        = true;
+		$st_link['current'] = is_home();
+	}
+}
+unset( $st_link );
+if ( ! $st_has_blog ) {
+	$st_links[] = array( 'label' => __( 'Blog', 'safetunnels' ), 'url' => $st_blog_url, 'current' => is_home() );
+}
 ?>
 <nav aria-label="<?php esc_attr_e( 'Primary', 'safetunnels' ); ?>">
 	<div class="nav-row">

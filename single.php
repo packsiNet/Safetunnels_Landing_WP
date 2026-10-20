@@ -58,6 +58,12 @@ while ( have_posts() ) :
 						<?php endif; ?>
 					</article>
 
+					<?php get_template_part( 'template-parts/content/post-cta' ); ?>
+
+					<p class="st-blog-back">
+						<a href="<?php echo esc_url( safetunnels_blog_url() ); ?>"><?php esc_html_e( 'Browse all posts', 'safetunnels' ); ?></a>
+					</p>
+
 					<nav class="st-post-nav" aria-label="<?php esc_attr_e( 'Post navigation', 'safetunnels' ); ?>">
 						<?php
 						previous_post_link( '<span class="st-prev">%link</span>', '<i class="ti ti-arrow-left" aria-hidden="true"></i> %title' );

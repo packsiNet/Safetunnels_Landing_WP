@@ -29,7 +29,7 @@ $st_columns = array(
 			array( __( 'Support', 'safetunnels' ), safetunnels_page_url( 'support' ) ),
 			array( __( 'FAQ', 'safetunnels' ), safetunnels_page_url( 'faq' ) ),
 			array( __( 'Contact', 'safetunnels' ), safetunnels_page_url( 'contact' ) ),
-			array( __( 'Blog', 'safetunnels' ), get_permalink( (int) get_option( 'page_for_posts' ) ) ),
+			array( __( 'Blog', 'safetunnels' ), safetunnels_blog_url() ),
 		),
 	),
 	array(

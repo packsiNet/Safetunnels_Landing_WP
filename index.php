@@ -34,7 +34,7 @@ if ( is_home() && get_option( 'page_for_posts' ) ) {
 		'template-parts/legal/hero',
 		null,
 		array(
-			'eyebrow'  => is_home() ? __( 'Guides &amp; updates', 'safetunnels' ) : __( 'Archive', 'safetunnels' ),
+			'eyebrow'  => is_home() ? __( 'Guides & updates', 'safetunnels' ) : __( 'Archive', 'safetunnels' ),
 			'title'    => $st_title,
 			'subtitle' => $st_sub,
 		)
