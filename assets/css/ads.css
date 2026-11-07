@@ -7,7 +7,7 @@
 	clear: both;
 }
 
-.st-ad__inner {
+.st-ad .st-ad__inner {
 	width: 100%;
 	max-width: 1168px;
 	min-width: 0;
@@ -26,6 +26,11 @@
 .st-ad__slot {
 	width: 100%;
 	min-height: 280px;
+}
+
+/* Collapse only after Google confirms there is no ad to display. */
+.st-ad:has(.adsbygoogle[data-ad-status="unfilled"]) {
+	display: none;
 }
 
 @media (min-width: 768px) {

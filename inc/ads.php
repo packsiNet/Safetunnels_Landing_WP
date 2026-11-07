@@ -38,11 +38,12 @@ function safetunnels_enqueue_ads() {
 	wp_enqueue_style(
 		'safetunnels-ads',
 		get_theme_file_uri( 'assets/css/ads.css' ),
-		array( 'safetunnels-theme' ),
+		array( 'safetunnels-internal' ),
 		safetunnels_asset_version( 'assets/css/ads.css' )
 	);
 }
-add_action( 'wp_enqueue_scripts', 'safetunnels_enqueue_ads' );
+// Load after the shell resets so they cannot clear the ad gutters and centering.
+add_action( 'wp_enqueue_scripts', 'safetunnels_enqueue_ads', 20 );
 
 function safetunnels_adsense_script_tag( $tag, $handle ) {
 	if ( 'safetunnels-adsense' === $handle ) {
