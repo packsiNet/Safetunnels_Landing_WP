@@ -1,0 +1,34 @@
+/* Natural document flow leaves ads clear of navigation and download controls. */
+.st-ad {
+	box-sizing: border-box;
+	width: 100%;
+	min-width: 0;
+	padding: 40px 16px;
+	clear: both;
+}
+
+.st-ad__inner {
+	width: 100%;
+	max-width: 1168px;
+	min-width: 0;
+	margin-inline: auto;
+}
+
+.st-ad .st-ad__label {
+	margin: 0 0 12px;
+	color: var(--st-muted, #63746c);
+	font-size: 12px;
+	line-height: 1.5;
+	text-align: center;
+}
+
+/* Reserve initial space, while allowing Google's auto format to grow freely. */
+.st-ad__slot {
+	width: 100%;
+	min-height: 280px;
+}
+
+@media (min-width: 768px) {
+	.st-ad { padding: 48px 40px; }
+	.st-ad__slot { min-height: 250px; }
+}

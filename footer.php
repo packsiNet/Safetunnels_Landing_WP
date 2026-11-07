@@ -9,6 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 $safetunnels_shell = safetunnels_shell();
 ?>
+		<?php get_template_part( 'template-parts/site/ad', null, array( 'placement' => 'footer' ) ); ?>
 		<?php get_template_part( 'template-parts/site/footer' ); ?>
 	</div><!-- .page -->
 

@@ -20,6 +20,7 @@ get_header();
 	get_template_part( 'template-parts/tunnels/steps' );
 	get_template_part( 'template-parts/tunnels/devices' );
 	get_template_part( 'template-parts/tunnels/apps' );
+	get_template_part( 'template-parts/site/ad', null, array( 'placement' => 'home' ) );
 	get_template_part( 'template-parts/tunnels/reviews' );
 	get_template_part( 'template-parts/tunnels/pricing' );
 	get_template_part( 'template-parts/tunnels/faq' );

@@ -16,3 +16,38 @@ function safetunnels_serve_ads_txt() {
 	exit;
 }
 add_action( 'template_redirect', 'safetunnels_serve_ads_txt', 0 );
+
+/** Keep ads off error, search and payment receipt views. */
+function safetunnels_ads_enabled() {
+	return ! is_404() && ! is_search() && ! is_page_template( 'page-templates/template-payment-result.php' );
+}
+
+/** WordPress deduplicates the shared loader by its script handle. */
+function safetunnels_enqueue_ads() {
+	if ( ! safetunnels_ads_enabled() ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'safetunnels-adsense',
+		'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2784419629304512',
+		array(),
+		null,
+		false
+	);
+	wp_enqueue_style(
+		'safetunnels-ads',
+		get_theme_file_uri( 'assets/css/ads.css' ),
+		array( 'safetunnels-theme' ),
+		safetunnels_asset_version( 'assets/css/ads.css' )
+	);
+}
+add_action( 'wp_enqueue_scripts', 'safetunnels_enqueue_ads' );
+
+function safetunnels_adsense_script_tag( $tag, $handle ) {
+	if ( 'safetunnels-adsense' === $handle ) {
+		$tag = str_replace( ' src=', ' async crossorigin="anonymous" src=', $tag );
+	}
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'safetunnels_adsense_script_tag', 20, 2 );
