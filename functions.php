@@ -20,6 +20,7 @@ $safetunnels_modules = array(
 	'inc/data/content.php',
 
 	// Behaviour.
+	'inc/ads.php',
 	'inc/setup.php',
 	'inc/branding.php',
 	'inc/enqueue.php',
